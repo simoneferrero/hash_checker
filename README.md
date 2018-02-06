@@ -19,7 +19,9 @@ If you wish to access private repositories, you will need to create a token to a
 And finally, add the following to `app/utils/config.js`:
 
 ```
-export const GITHUB_URL = 'https://api.github.com/repos/{company_name}'; // required
+export const GITHUB_API_URL = 'https://api.github.com/repos/{your_name/company_name}'; // required
 export const GITHUB_API_TOKEN = '{your_token}'; // if empty/null, no authentication will be used
-export const DEFAULT_BRANCH = '{repo_default_branch}'; // if empty/null, default will be master
+
+export const GIT_DEFAULT_BRANCH = '{repo_default_branch}'; // if empty/null, default will be master
+export const GIT_REPOS = []; // array of repo names to check SHA from, as strings
 ```
