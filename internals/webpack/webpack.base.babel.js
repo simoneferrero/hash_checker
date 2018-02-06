@@ -33,13 +33,13 @@ module.exports = (options) => ({
         // for a list of loaders, see https://webpack.js.org/loaders/#styling
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader?modules=true&camelCase=true'],
       },
       {
         // Preprocess 3rd party .css files located in node_modules
         test: /\.css$/,
         include: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader?modules=true&camelCase=true'],
       },
       {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
@@ -114,4 +114,8 @@ module.exports = (options) => ({
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
+  node: {
+    fs: 'empty', // fix for webpack issue https://github.com/webpack-contrib/css-loader/issues/447
+    net: 'empty',
+  },
 });
