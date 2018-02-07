@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
-import makeSelectRepoContainer from './selectors';
 import saga from './saga';
 
 export class RepoContainer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -28,7 +27,7 @@ RepoContainer.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  repocontainer: makeSelectRepoContainer(),
+  repocontainer: () => {},
 });
 
 function mapDispatchToProps(dispatch) {

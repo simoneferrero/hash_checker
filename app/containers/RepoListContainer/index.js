@@ -10,32 +10,44 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import RepoList from 'components/RepoList';
+
 import injectReducer from 'utils/injectReducer';
 import { selectRepos } from './selectors';
 import reducer from './reducer';
 
-function RepoListContainer() {
-  return (
-    <div>
-    </div>
-  );
-}
+export const RepoListContainer = ({
+  repos,
+}) => (
+  <div>
+    <RepoList
+      repos={repos}
+    />
+  </div>
+);
 
 RepoListContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  repos: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      latest: PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        sha: PropTypes.string.isRequired,
+      }),
+      error: PropTypes.string,
+    }),
+  ).isRequired,
+};
+
+RepoListContainer.defaultProps = {
+  repos: [],
 };
 
 const mapStateToProps = createStructuredSelector({
   repos: selectRepos(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(mapStateToProps);
 
 const withReducer = injectReducer({ key: 'repoListContainer', reducer });
 
