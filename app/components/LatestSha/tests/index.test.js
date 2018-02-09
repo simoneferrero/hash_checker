@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import RepoList from '../index';
+// import LatestSha from '../index';
 
-describe('<RepoList />', () => {
+describe('<LatestSha />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

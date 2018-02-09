@@ -1,17 +1,16 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { shallow } from 'enzyme';
 
+import RepoListContainer from 'containers/RepoListContainer';
 import HomePage from '../index';
-import messages from '../messages';
+
+const renderComponent = (props = {}) => shallow(
+  <HomePage {...props} />
+);
 
 describe('<HomePage />', () => {
-  it('should render the page message', () => {
-    const renderedComponent = shallow(
-      <HomePage />
-    );
-    expect(renderedComponent.contains(
-      <FormattedMessage {...messages.header} />
-    )).toEqual(true);
+  it('renders RepoListContainer', () => {
+    const renderedComponent = renderComponent();
+    expect(renderedComponent.find(RepoListContainer).length).toEqual(1);
   });
 });

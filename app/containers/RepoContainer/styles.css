@@ -1,0 +1,11 @@
+.repoContainer {
+  align-items: center;
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.repoContainer > div {
+  flex-basis: 50%;
+}

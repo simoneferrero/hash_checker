@@ -8,6 +8,7 @@ import request from 'utils/request';
 import {
   GITHUB_API_URL,
   GITHUB_API_TOKEN,
+  GIT_COMPANY_NAME,
   GIT_DEFAULT_BRANCH,
 } from 'utils/config';
 
@@ -41,9 +42,9 @@ describe('getLatestShaSaga', () => {
   let generator;
 
   beforeEach(() => {
-    generator = getLatestShaSaga(name);
+    generator = getLatestShaSaga({ name });
 
-    const requestURL = `${GITHUB_API_URL}${name}/commits/${GIT_DEFAULT_BRANCH}`;
+    const requestURL = `${GITHUB_API_URL}repos/${GIT_COMPANY_NAME}/${name}/commits/${GIT_DEFAULT_BRANCH}`;
 
     const callDescriptor = generator.next().value;
     expect(callDescriptor).toEqual(call(request, requestURL, getOpts));

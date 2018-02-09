@@ -10,19 +10,19 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import RepoList from 'components/RepoList';
+import RepoContainer from 'containers/RepoContainer';
 
 import injectReducer from 'utils/injectReducer';
 import { selectRepos } from './selectors';
 import reducer from './reducer';
 
+import styles from './styles.css';
+
 export const RepoListContainer = ({
   repos,
 }) => (
-  <div>
-    <RepoList
-      repos={repos}
-    />
+  <div className={styles.repoListContainer}>
+    { repos.map((repo) => <RepoContainer key={repo.name} repo={repo} />) }
   </div>
 );
 

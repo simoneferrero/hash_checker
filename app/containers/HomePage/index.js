@@ -15,9 +15,9 @@ import RepoListContainer from 'containers/RepoListContainer';
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <h1>
+      <div>
         <RepoListContainer />
-      </h1>
+      </div>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import RepoList from 'components/RepoList';
+import RepoContainer from 'containers/RepoContainer';
 import { RepoListContainer } from '../index';
 
 const renderComponent = (props = {}) => shallow(
@@ -18,13 +18,13 @@ describe('<RepoListContainer />', () => {
     },
   ];
 
-  it('renders RepoList component', () => {
-    const renderedComponent = renderComponent({ repos });
-    expect(renderedComponent.contains(<RepoList repos={repos} />)).toEqual(true);
+  it('renders RepoListContainer if no props are passed', () => {
+    const renderedComponent = renderComponent();
+    expect(renderedComponent.find(RepoContainer)).toBeDefined();
   });
 
-  it('provides empty repo array props if not specified', () => {
-    const renderedComponent = renderComponent();
-    expect(renderedComponent.contains(<RepoList repos={[]} />)).toEqual(true);
+  it('renders a RepoContainer for each repo passed to props', () => {
+    const renderedComponent = renderComponent({ repos });
+    expect(renderedComponent.find(RepoContainer).length).toEqual(2);
   });
 });
