@@ -17,6 +17,9 @@ const initialState = fromJS({
   repos: GIT_REPOS.map((repo) => (
     {
       name: repo,
+      latest: {
+        error: null,
+      },
     }
   )),
 });
@@ -32,12 +35,13 @@ function repoListContainerReducer(state = initialState, action) {
       const repos = state.get('repos').toJS();
       const repoIndex = repos.findIndex((repo) => (repo.name === name));
 
-      repos[repoIndex].latest = {
+      const latest = {
         date: response.commit.author.date,
         sha: response.sha,
       };
+
       return state
-        .set('repos', fromJS(repos));
+        .setIn(['repos', repoIndex, 'latest'], fromJS(latest));
     }
     case GET_LATEST_SHA_ERROR: {
       const {
@@ -48,11 +52,12 @@ function repoListContainerReducer(state = initialState, action) {
       const repos = state.get('repos').toJS();
       const repoIndex = repos.findIndex((repo) => (repo.name === name));
 
-      repos[repoIndex].latest = {
+      const latest = {
         error,
       };
+
       return state
-        .set('repos', fromJS(repos));
+        .setIn(['repos', repoIndex, 'latest'], fromJS(latest));
     }
     default:
       return state;

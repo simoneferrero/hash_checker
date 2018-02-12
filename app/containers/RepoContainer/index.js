@@ -23,7 +23,7 @@ import saga from './saga';
 
 import styles from './styles.css';
 
-export class RepoContainer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class RepoContainer extends React.PureComponent {
   componentWillMount = () => {
     const {
       onLoadGetLatestSha,
@@ -53,8 +53,8 @@ RepoContainer.propTypes = {
   repo: PropTypes.shape({
     name: PropTypes.string.isRequired,
     latest: PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      sha: PropTypes.string.isRequired,
+      date: PropTypes.string,
+      sha: PropTypes.string,
     }),
     error: PropTypes.string,
   }).isRequired,

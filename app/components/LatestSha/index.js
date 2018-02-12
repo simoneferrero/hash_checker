@@ -9,21 +9,41 @@ import PropTypes from 'prop-types';
 
 import moment from 'moment';
 
+import classnames from 'classnames';
 import styles from './styles.css';
 
 const LatestSha = ({
   latest,
-}) => (
-  <div className={styles.latestSha}>
-    <div>Date: { moment.utc(new Date(latest.date)).format('MMMM Do YYYY, hh:mm:ssa') }</div>
-    <div>Sha: { latest.sha.substring(0, 7) }</div>
-  </div>
-);
+}) => {
+  const {
+    date,
+    error,
+    sha,
+  } = latest;
+
+  const className = classnames({
+    [styles.error]: !!error,
+    [styles.latestSha]: true,
+  });
+
+  if (error) {
+    return (
+      <div className={className}>{ error }</div>
+    );
+  }
+
+  return (
+    <div className={className}>
+      <div>Date: { date && moment.utc(new Date(date)).format('MMMM Do YYYY, hh:mm:ssa') }</div>
+      <div>Sha: { sha && sha.substring(0, 7) }</div>
+    </div>
+  );
+};
 
 LatestSha.propTypes = {
   latest: PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    sha: PropTypes.string.isRequired,
+    date: PropTypes.string,
+    sha: PropTypes.string,
   }).isRequired,
 };
 

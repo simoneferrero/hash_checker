@@ -31,8 +31,8 @@ RepoListContainer.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       latest: PropTypes.shape({
-        date: PropTypes.string.isRequired,
-        sha: PropTypes.string.isRequired,
+        date: PropTypes.string,
+        sha: PropTypes.string,
       }),
       error: PropTypes.string,
     }),

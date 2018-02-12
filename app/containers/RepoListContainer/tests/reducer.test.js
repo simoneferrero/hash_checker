@@ -40,20 +40,12 @@ describe('RepoListContainer reducer', () => {
       },
     };
 
-    const repos = [
-      {
-        name,
-        latest: {
-          date,
-          sha,
-        },
-      },
-      {
-        name: 'test2',
-      },
-    ];
+    const latest = {
+      date,
+      sha,
+    };
 
-    const expectedResult = state.set('repos', fromJS(repos));
+    const expectedResult = state.setIn(['repos', 0, 'latest'], fromJS(latest));
     expect(repoListContainerReducer(state, getLatestShaSuccess(name, response))).toEqual(expectedResult);
   });
 
@@ -61,19 +53,11 @@ describe('RepoListContainer reducer', () => {
     const name = 'test1';
     const error = 'Some error';
 
-    const repos = [
-      {
-        name,
-        latest: {
-          error,
-        },
-      },
-      {
-        name: 'test2',
-      },
-    ];
+    const latest = {
+      error,
+    };
 
-    const expectedResult = state.set('repos', fromJS(repos));
+    const expectedResult = state.setIn(['repos', 0, 'latest'], fromJS(latest));
     expect(repoListContainerReducer(state, getLatestShaError(name, error))).toEqual(expectedResult);
   });
 });
