@@ -13,6 +13,9 @@ import { compose } from 'redux';
 import LatestSha from 'components/LatestSha';
 
 import {
+  selectSingleRepo,
+} from 'containers/RepoListContainer/selectors';
+import {
   getLatestSha,
 } from 'containers/RepoListContainer/actions';
 import injectSaga from 'utils/injectSaga';
@@ -24,27 +27,28 @@ export class RepoContainer extends React.PureComponent { // eslint-disable-line 
   componentWillMount = () => {
     const {
       onLoadGetLatestSha,
-      repo,
+      name,
     } = this.props;
-    onLoadGetLatestSha(repo.name);
+    onLoadGetLatestSha(name);
   }
 
   render() {
     const {
-      latest,
       name,
-    } = this.props.repo;
+      repo,
+    } = this.props;
 
     return (
       <div className={styles.repoContainer}>
         <div>{ name }</div>
-        <div><LatestSha latest={latest} /></div>
+        <div><LatestSha latest={repo.latest} /></div>
       </div>
     );
   }
 }
 
 RepoContainer.propTypes = {
+  name: PropTypes.string.isRequired,
   onLoadGetLatestSha: PropTypes.func.isRequired,
   repo: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -56,17 +60,15 @@ RepoContainer.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  repocontainer: () => {},
+const mapStateToProps = (state, props) => createStructuredSelector({
+  repo: selectSingleRepo(props.name),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
+const mapDispatchToProps = (dispatch) => (
+  {
     onLoadGetLatestSha: (name) => dispatch(getLatestSha(name)),
-  };
-}
-
+  }
+);
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withSaga = injectSaga({ key: 'repoContainer', saga });

@@ -22,7 +22,7 @@ export const RepoListContainer = ({
   repos,
 }) => (
   <div className={styles.repoListContainer}>
-    { repos.map((repo) => <RepoContainer key={repo.name} repo={repo} />) }
+    { repos.map((repo) => <RepoContainer key={repo.name} name={repo.name} />) }
   </div>
 );
 

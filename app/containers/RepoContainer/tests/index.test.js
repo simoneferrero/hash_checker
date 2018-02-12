@@ -2,7 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import LatestSha from 'components/LatestSha';
-import { RepoContainer } from '../index';
+import {
+  RepoContainer,
+} from '../index';
 
 const renderComponent = (props = {}) => shallow(
   <RepoContainer {...props} />
@@ -12,6 +14,7 @@ const date = '2018-02-05T15:40:23Z';
 const name = 'test1';
 const sha = '93b02ffd52c069fa21bc0c919405278ab0758ce5';
 const mockProps = {
+  name,
   onLoadGetLatestSha: () => {},
   repo: {
     name,
@@ -22,7 +25,7 @@ const mockProps = {
   },
 };
 
-describe('<RepoListContainer />', () => {
+describe('<RepoContainer />', () => {
   it('renders the name of the repo', () => {
     const renderedComponent = renderComponent(mockProps);
     expect(renderedComponent.contains(name)).toBe(true);
