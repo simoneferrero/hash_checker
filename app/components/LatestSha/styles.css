@@ -1,0 +1,16 @@
+.copyToClipboard {
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.wrapperStyle {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
