@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import LatestSha from 'components/LatestSha';
+import DeployedSha from 'components/DeployedSha';
 import {
   RepoContainer,
 } from '../index';
@@ -34,6 +35,11 @@ describe('<RepoContainer />', () => {
   it('renders a LatestSha', () => {
     const renderedComponent = renderComponent(mockProps);
     expect(renderedComponent.find(LatestSha).length).toEqual(1);
+  });
+
+  it('renders a DeployedSha', () => {
+    const renderedComponent = renderComponent(mockProps);
+    expect(renderedComponent.find(DeployedSha).length).toEqual(1);
   });
 
   it('calls onLoadGetLatestSha on mount', () => {

@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import LatestSha from 'components/LatestSha';
+import DeployedSha from 'components/DeployedSha';
 
 import {
   selectSingleRepo,
@@ -42,6 +43,7 @@ export class RepoContainer extends React.PureComponent {
       <div className={styles.repoContainer}>
         <div>{ name }</div>
         <div><LatestSha latest={repo.latest} /></div>
+        <div><DeployedSha deployed={repo.latest} /></div>
       </div>
     );
   }

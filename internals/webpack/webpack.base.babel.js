@@ -32,7 +32,7 @@ module.exports = (options) => ({
         // This is the place to add your own loaders (e.g. sass/less etc.)
         // for a list of loaders, see https://webpack.js.org/loaders/#styling
         test: /\.css$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!(react-redux-toastr)\/).*/,
         use: ['style-loader', 'css-loader?modules=true&camelCase=true'],
       },
       {
@@ -110,8 +110,8 @@ module.exports = (options) => ({
     ],
     mainFields: [
       'browser',
-      'jsnext:main',
       'main',
+      'jsnext:main',
     ],
   },
   devtool: options.devtool,

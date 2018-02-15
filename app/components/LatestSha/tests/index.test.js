@@ -20,17 +20,24 @@ const propsError = {
   error,
 };
 
+const propsUndefined = {
+  date: undefined,
+  sha: undefined,
+};
+
 const propsAll = {
   date,
   error,
   sha,
 };
 
+const loading = 'loading...';
+
 describe('<LatestSha />', () => {
   it('renders a formatted date', () => {
     const renderedComponent = renderComponent({ latest: propsSuccess });
 
-    expect(renderedComponent.contains('February 5th 2018, 03:40:23pm')).toBe(true);
+    expect(renderedComponent.contains('05/02/18, 03:40:23pm')).toBe(true);
   });
 
   it('renders a substring of sha', () => {
@@ -48,7 +55,13 @@ describe('<LatestSha />', () => {
   it('does not render info if an error if present', () => {
     const renderedComponent = renderComponent({ latest: propsAll });
 
-    expect(renderedComponent.contains('February 5th 2018, 03:40:23pm')).toBe(false);
+    expect(renderedComponent.contains('05/02/18, 03:40:23pm')).toBe(false);
     expect(renderedComponent.contains('93b02ff')).toBe(false);
+  });
+
+  it('displays a loader if the details have not been loaded yet', () => {
+    const renderedComponent = renderComponent({ latest: propsUndefined });
+
+    expect(renderedComponent.contains(loading)).toBe(true);
   });
 });

@@ -13,6 +13,7 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import ReduxToastr from 'react-redux-toastr';
 
 import HomePage from 'containers/HomePage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -24,6 +25,10 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
+      <ReduxToastr
+        timeOut={4000}
+        position="bottom-center"
+      />
     </div>
   );
 }
