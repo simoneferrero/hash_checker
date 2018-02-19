@@ -1,0 +1,21 @@
+:root {
+  --baseSpacing: 24px;
+  --halfSpacing: 12px;
+  --quarterSpacing: 6px;
+  --wideSpacing: 36px;
+  --borderSpacing: 5px;
+  --borderSpacingNegative: -5px;
+  --borderThinSpacing: 3px;
+  --borderThinSpacingNegative: -3px;
+
+  --baseColor: rgba(39, 138, 165, 1);
+  --lightColor: rgba(130, 186, 201, 1);
+  --darkColor: rgba(2, 87, 111, 1);
+  --whiteColor: rgba(255, 255, 255, 1);
+  --warningColor: rgba(223, 140, 124, 1);
+  --allrightColor: rgba(167, 217, 146, 1);
+
+  --headerHeight: 60px;
+  --rowHeight: 90px;
+  --titlesHeight: 50px;
+}

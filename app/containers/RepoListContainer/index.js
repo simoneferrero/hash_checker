@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import RepoContainer from 'containers/RepoContainer';
+import RepoHeaders from 'components/RepoHeaders';
 
 import injectReducer from 'utils/injectReducer';
 import { selectRepos } from './selectors';
@@ -21,9 +22,12 @@ import styles from './styles.css';
 export const RepoListContainer = ({
   repos,
 }) => (
-  <div className={styles.repoListContainer}>
-    { repos.map((repo) => <RepoContainer key={repo.name} name={repo.name} />) }
-  </div>
+  <table className={styles.repoListContainer}>
+    <RepoHeaders />
+    <tbody>
+      { repos.map((repo) => <RepoContainer key={repo.name} name={repo.name} />) }
+    </tbody>
+  </table>
 );
 
 RepoListContainer.propTypes = {

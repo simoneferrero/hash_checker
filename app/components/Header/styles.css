@@ -1,0 +1,20 @@
+@import '../../styles/variables.css';
+
+.header {
+  align-items: center;
+  background-color: var(--baseColor);
+  color: var(--whiteColor);
+  display: flex;
+  height: var(--headerHeight);
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+.header > * {
+  height: auto;
+  margin: 0;
+}

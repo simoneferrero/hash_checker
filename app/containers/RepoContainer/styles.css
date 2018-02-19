@@ -1,11 +1,36 @@
+@import '../../styles/variables.css';
+
 .repoContainer {
   align-items: center;
   display: flex;
-  height: 100px;
+  height: var(--rowHeight);
   justify-content: space-between;
   width: 100%;
+  border-bottom: var(--borderThinSpacing) solid var(--lightColor);
 }
 
-.repoContainer > div {
-  flex-basis: 50%;
+.repoContainer > td {
+  align-items: center;
+  border-left: var(--borderThinSpacing) solid var(--lightColor);
+  display: flex;
+  flex-basis: 40%;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.repoContainer > td:after {
+  background-color: var(--whiteColor);
+  content: "";
+  height: 50%;
+  position: absolute;
+  right: var(--borderThinSpacingNegative);
+  top: 0;
+  width: var(--borderThinSpacing);
+  z-index: 100;
+}
+
+.repoContainer > td:nth-child(1) {
+  flex-basis: 20%;
+  border-left: 0;
 }
