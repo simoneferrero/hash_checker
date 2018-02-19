@@ -15,20 +15,26 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ReduxToastr from 'react-redux-toastr';
 
+import Header from 'components/Header';
 import HomePage from 'containers/HomePage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
+import styles from './styles.css';
 
 export default function App() {
   return (
     <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <ReduxToastr
-        timeOut={4000}
-        position="bottom-center"
-      />
+      <Header />
+      <div className={styles.content}>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+        <ReduxToastr
+          timeOut={4000}
+          position="bottom-center"
+        />
+      </div>
     </div>
   );
 }

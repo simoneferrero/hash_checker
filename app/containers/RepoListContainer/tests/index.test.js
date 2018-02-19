@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import RepoContainer from 'containers/RepoContainer';
+import RepoHeaders from 'components/RepoHeaders';
 import { RepoListContainer } from '../index';
 
 const renderComponent = (props = {}) => shallow(
@@ -26,5 +27,10 @@ describe('<RepoListContainer />', () => {
   it('renders a RepoContainer for each repo passed to props', () => {
     const renderedComponent = renderComponent({ repos });
     expect(renderedComponent.find(RepoContainer).length).toEqual(2);
+  });
+
+  it('renders RepoHeaders', () => {
+    const renderedComponent = renderComponent();
+    expect(renderedComponent.find(RepoHeaders).length).toEqual(1);
   });
 });

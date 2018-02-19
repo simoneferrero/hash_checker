@@ -40,11 +40,11 @@ export class RepoContainer extends React.PureComponent {
     } = this.props;
 
     return (
-      <div className={styles.repoContainer}>
-        <div>{ name }</div>
-        <div><LatestSha latest={repo.latest} /></div>
-        <div><DeployedSha deployed={repo.latest} /></div>
-      </div>
+      <tr className={styles.repoContainer}>
+        <td>{ name }</td>
+        <td><LatestSha latest={repo.latest} /></td>
+        <td><DeployedSha deployed={repo.latest} /></td>
+      </tr>
     );
   }
 }
