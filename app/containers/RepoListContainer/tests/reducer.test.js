@@ -4,6 +4,9 @@ import { fromJS } from 'immutable';
 import {
   getLatestHashSuccess,
   getLatestHashError,
+
+  getRepoDetailsSuccess,
+  getRepoDetailsError,
 } from '../actions';
 import repoListContainerReducer from '../reducer';
 
@@ -59,5 +62,25 @@ describe('RepoListContainer reducer', () => {
 
     const expectedResult = state.setIn(['repos', 0, 'latest'], fromJS(latest));
     expect(repoListContainerReducer(state, getLatestHashError(name, error))).toEqual(expectedResult);
+  });
+
+  it('handles getRepoDetailsSuccess correctly', () => {
+    const name = 'test1';
+    const defaultBranch = 'staging';
+
+    const details = {
+      default_branch: defaultBranch,
+    };
+
+    const expectedResult = state.setIn(['repos', 0, 'defaultBranch'], defaultBranch);
+    expect(repoListContainerReducer(state, getRepoDetailsSuccess(name, details))).toEqual(expectedResult);
+  });
+
+  it('handles getRepoDetailsError correctly', () => {
+    const name = 'test1';
+    const error = 'Some error';
+
+    const expectedResult = state.setIn(['repos', 0, 'error'], error);
+    expect(repoListContainerReducer(state, getRepoDetailsError(name, error))).toEqual(expectedResult);
   });
 });

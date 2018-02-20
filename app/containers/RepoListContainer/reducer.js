@@ -11,6 +11,9 @@ import {
 import {
   GET_LATEST_SHA_SUCCESS,
   GET_LATEST_SHA_ERROR,
+
+  GET_REPO_DETAILS_SUCCESS,
+  GET_REPO_DETAILS_ERROR,
 } from './constants';
 
 const initialState = fromJS({
@@ -26,12 +29,14 @@ const initialState = fromJS({
 
 function repoListContainerReducer(state = initialState, action) {
   switch (action.type) {
+    /* GET_LATEST_SHA */
     case GET_LATEST_SHA_SUCCESS: {
       const {
         name,
         response,
       } = action;
 
+      // TODO: export this to separate helper function and test
       const repos = state.get('repos').toJS();
       const repoIndex = repos.findIndex((repo) => (repo.name === name));
 
@@ -59,6 +64,34 @@ function repoListContainerReducer(state = initialState, action) {
       return state
         .setIn(['repos', repoIndex, 'latest'], fromJS(latest));
     }
+
+    /* GET_REPO_DETAILS */
+    // TODO: include GET_REPO_DETAILS to use for spinner and update reducer with ui
+    case GET_REPO_DETAILS_SUCCESS: {
+      const {
+        name,
+        details,
+      } = action;
+
+      const repos = state.get('repos').toJS();
+      const repoIndex = repos.findIndex((repo) => (repo.name === name));
+
+      return state
+        .setIn(['repos', repoIndex, 'defaultBranch'], details.default_branch);
+    }
+    case GET_REPO_DETAILS_ERROR: {
+      const {
+        name,
+        error,
+      } = action;
+
+      const repos = state.get('repos').toJS();
+      const repoIndex = repos.findIndex((repo) => (repo.name === name));
+
+      return state
+        .setIn(['repos', repoIndex, 'error'], error);
+    }
+
     default:
       return state;
   }
