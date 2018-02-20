@@ -1,6 +1,6 @@
 /**
 *
-* DeployedSha
+* DeployedHash
 *
 */
 
@@ -10,20 +10,20 @@ import PropTypes from 'prop-types';
 import styles from './styles.css';
 
 
-const DeployedSha = ({
+const DeployedHash = ({
   deployed,
 }) => (
   <div>
-    This is the deployed sha
+    Deployed hash coming soon
   </div>
 );
 
-DeployedSha.propTypes = {
+DeployedHash.propTypes = {
   deployed: PropTypes.shape().isRequired,
 };
 
-DeployedSha.defaultProps = {
+DeployedHash.defaultProps = {
   deployed: {},
 };
 
-export default DeployedSha;
+export default DeployedHash;

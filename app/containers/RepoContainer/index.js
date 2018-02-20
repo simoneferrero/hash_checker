@@ -10,14 +10,14 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import LatestSha from 'components/LatestSha';
-import DeployedSha from 'components/DeployedSha';
+import LatestHash from 'components/LatestHash';
+import DeployedHash from 'components/DeployedHash';
 
 import {
   selectSingleRepo,
 } from 'containers/RepoListContainer/selectors';
 import {
-  getLatestSha,
+  getLatestHash,
 } from 'containers/RepoListContainer/actions';
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
@@ -27,10 +27,10 @@ import styles from './styles.css';
 export class RepoContainer extends React.PureComponent {
   componentWillMount = () => {
     const {
-      onLoadGetLatestSha,
+      onLoadGetLatestHash,
       name,
     } = this.props;
-    onLoadGetLatestSha(name);
+    onLoadGetLatestHash(name);
   }
 
   render() {
@@ -42,8 +42,8 @@ export class RepoContainer extends React.PureComponent {
     return (
       <tr className={styles.repoContainer}>
         <td>{ name }</td>
-        <td><LatestSha latest={repo.latest} /></td>
-        <td><DeployedSha deployed={repo.latest} /></td>
+        <td><LatestHash latest={repo.latest} /></td>
+        <td><DeployedHash deployed={repo.latest} /></td>
       </tr>
     );
   }
@@ -51,7 +51,7 @@ export class RepoContainer extends React.PureComponent {
 
 RepoContainer.propTypes = {
   name: PropTypes.string.isRequired,
-  onLoadGetLatestSha: PropTypes.func.isRequired,
+  onLoadGetLatestHash: PropTypes.func.isRequired,
   repo: PropTypes.shape({
     name: PropTypes.string.isRequired,
     latest: PropTypes.shape({
@@ -68,7 +68,7 @@ const mapStateToProps = (state, props) => createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => (
   {
-    onLoadGetLatestSha: (name) => dispatch(getLatestSha(name)),
+    onLoadGetLatestHash: (name) => dispatch(getLatestHash(name)),
   }
 );
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

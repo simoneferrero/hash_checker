@@ -7,7 +7,7 @@ const renderComponent = (props = {}) => shallow(
   <Header {...props} />
 );
 
-const title = <h2>SHA CHECKER</h2>;
+const title = <h2>HASH CHECKER</h2>;
 
 describe('<Header />', () => {
   it('renders a title', () => {

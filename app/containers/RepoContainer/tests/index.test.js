@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import LatestSha from 'components/LatestSha';
-import DeployedSha from 'components/DeployedSha';
+import LatestHash from 'components/LatestHash';
+import DeployedHash from 'components/DeployedHash';
 import {
   RepoContainer,
 } from '../index';
@@ -16,7 +16,7 @@ const name = 'test1';
 const sha = '93b02ffd52c069fa21bc0c919405278ab0758ce5';
 const mockProps = {
   name,
-  onLoadGetLatestSha: () => {},
+  onLoadGetLatestHash: () => {},
   repo: {
     name,
     latest: {
@@ -32,19 +32,19 @@ describe('<RepoContainer />', () => {
     expect(renderedComponent.contains(name)).toBe(true);
   });
 
-  it('renders a LatestSha', () => {
+  it('renders a LatestHash', () => {
     const renderedComponent = renderComponent(mockProps);
-    expect(renderedComponent.find(LatestSha).length).toEqual(1);
+    expect(renderedComponent.find(LatestHash).length).toEqual(1);
   });
 
-  it('renders a DeployedSha', () => {
+  it('renders a DeployedHash', () => {
     const renderedComponent = renderComponent(mockProps);
-    expect(renderedComponent.find(DeployedSha).length).toEqual(1);
+    expect(renderedComponent.find(DeployedHash).length).toEqual(1);
   });
 
-  it('calls onLoadGetLatestSha on mount', () => {
+  it('calls onLoadGetLatestHash on mount', () => {
     const mockCallback = jest.fn();
-    mockProps.onLoadGetLatestSha = mockCallback;
+    mockProps.onLoadGetLatestHash = mockCallback;
 
     renderComponent(mockProps);
 

@@ -1,6 +1,6 @@
 /**
 *
-* LatestSha
+* LatestHash
 *
 */
 
@@ -15,7 +15,7 @@ import GoClippy from 'react-icons/lib/go/clippy';
 import classnames from 'classnames';
 import styles from './styles.css';
 
-export default class LatestSha extends PureComponent {
+export default class LatestHash extends PureComponent {
   state = {
     iconVisible: false,
   }
@@ -33,9 +33,9 @@ export default class LatestSha extends PureComponent {
       sha,
     } = this.props.latest;
 
-    const latestShaStyle = classnames({
+    const latestHashStyle = classnames({
       [styles.error]: !!error,
-      [styles.latestSha]: true,
+      [styles.latestHash]: true,
     });
 
     const iconStyle = classnames({
@@ -45,13 +45,13 @@ export default class LatestSha extends PureComponent {
 
     if (error) {
       return (
-        <div className={latestShaStyle}>{ error }</div>
+        <div className={latestHashStyle}>{ error }</div>
       );
     }
 
     if (!sha) {
       return (
-        <div className={latestShaStyle}>loading...</div>
+        <div className={latestHashStyle}>loading...</div>
       );
     }
 
@@ -73,7 +73,7 @@ export default class LatestSha extends PureComponent {
         onSuccess={() => toastr.info(shaSubstring, 'Copied to clipboard')}
       >
         <div // eslint-disable-line
-          className={latestShaStyle}
+          className={latestHashStyle}
           id="test"
           onMouseOut={() => this.handleHover()}
           onMouseOver={() => this.handleHover()}
@@ -87,7 +87,7 @@ export default class LatestSha extends PureComponent {
   }
 }
 
-LatestSha.propTypes = {
+LatestHash.propTypes = {
   latest: PropTypes.shape({
     date: PropTypes.string,
     sha: PropTypes.string,
@@ -95,7 +95,7 @@ LatestSha.propTypes = {
   }).isRequired,
 };
 
-LatestSha.defaultProps = {
+LatestHash.defaultProps = {
   latest: {
     date: '',
     sha: '',
