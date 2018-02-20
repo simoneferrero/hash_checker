@@ -7,8 +7,8 @@ import {
 } from 'containers/RepoListContainer/constants';
 
 import {
-  getLatestShaSuccess,
-  getLatestShaError,
+  getLatestHashSuccess,
+  getLatestHashError,
 } from 'containers/RepoListContainer/actions';
 
 import {
@@ -18,7 +18,7 @@ import {
   GIT_DEFAULT_BRANCH,
 } from 'utils/config';
 
-export function* getLatestShaSaga({ name }) { // TODO: find a way to pass request url as param for better testing
+export function* getLatestHashSaga({ name }) { // TODO: find a way to pass request url as param for better testing
   const requestUrl = getRequestUrl(
     GITHUB_API_URL,
     ['repos', GIT_COMPANY_NAME, name, 'commits', GIT_DEFAULT_BRANCH || 'master'],
@@ -37,13 +37,13 @@ export function* getLatestShaSaga({ name }) { // TODO: find a way to pass reques
   try {
     const response = yield call(request, requestUrl, opts);
 
-    yield put(getLatestShaSuccess(name, response));
+    yield put(getLatestHashSuccess(name, response));
   } catch (error) {
-    yield put(getLatestShaError(name, error));
+    yield put(getLatestHashError(name, error));
   }
 }
 
 // Individual exports for testing
 export default function* repoContainerSaga() {
-  yield takeEvery(GET_LATEST_SHA, getLatestShaSaga);
+  yield takeEvery(GET_LATEST_SHA, getLatestHashSaga);
 }

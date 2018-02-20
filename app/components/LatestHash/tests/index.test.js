@@ -3,10 +3,10 @@ import { shallow } from 'enzyme';
 
 import GoClippy from 'react-icons/lib/go/clippy';
 
-import LatestSha from '../index';
+import LatestHash from '../index';
 
 const renderComponent = (props = {}) => shallow(
-  <LatestSha {...props} onClick={() => {}} />
+  <LatestHash {...props} onClick={() => {}} />
 );
 
 const date = '2018-02-05T15:40:23Z';
@@ -35,7 +35,7 @@ const propsAll = {
 
 const loading = 'loading...';
 
-describe('<LatestSha />', () => {
+describe('<LatestHash />', () => {
   it('renders a formatted date', () => {
     const renderedComponent = renderComponent({ latest: propsSuccess });
 

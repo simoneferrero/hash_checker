@@ -10,7 +10,7 @@ import styles from './styles.css';
 
 const Header = () => (
   <div className={styles.header}>
-    <h2>SHA CHECKER</h2>
+    <h2>HASH CHECKER</h2>
   </div>
 );
 

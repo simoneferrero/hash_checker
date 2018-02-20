@@ -1,10 +1,10 @@
 {
-  "name": "sha_checker",
+  "name": "hash_checker",
   "version": "0.0.1",
   "description": "A simple UI to compare the latest git SHA with those deployed to an environment",
   "repository": {
     "type": "git",
-    "url": "https://github.com/simoneferrero/sha_checker.git"
+    "url": "https://github.com/simoneferrero/hash_checker.git"
   },
   "engines": {
     "npm": ">=3",

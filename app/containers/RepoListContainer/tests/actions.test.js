@@ -1,8 +1,8 @@
 
 import {
-  getLatestSha,
-  getLatestShaSuccess,
-  getLatestShaError,
+  getLatestHash,
+  getLatestHashSuccess,
+  getLatestHashError,
 } from '../actions';
 import {
   GET_LATEST_SHA,
@@ -11,18 +11,18 @@ import {
 } from '../constants';
 
 describe('RepoListContainer actions', () => {
-  describe('GetLatestSha', () => {
+  describe('GetLatestHash', () => {
     it('has a type of GET_LATEST_SHA', () => {
       const name = 'test';
       const expected = {
         type: GET_LATEST_SHA,
         name,
       };
-      expect(getLatestSha(name)).toEqual(expected);
+      expect(getLatestHash(name)).toEqual(expected);
     });
   });
 
-  describe('GetLatestShaSuccess', () => {
+  describe('GetLatestHashSuccess', () => {
     it('has a type of GET_LATEST_SHA_SUCCESS', () => {
       const name = 'test';
       const response = 'response';
@@ -32,11 +32,11 @@ describe('RepoListContainer actions', () => {
         name,
         response,
       };
-      expect(getLatestShaSuccess(name, response)).toEqual(expected);
+      expect(getLatestHashSuccess(name, response)).toEqual(expected);
     });
   });
 
-  describe('GetLatestShaError', () => {
+  describe('GetLatestHashError', () => {
     it('has a type of GET_LATEST_SHA_ERROR', () => {
       const error = 'Some error';
       const name = 'test';
@@ -46,7 +46,7 @@ describe('RepoListContainer actions', () => {
         name,
         error,
       };
-      expect(getLatestShaError(name, error)).toEqual(expected);
+      expect(getLatestHashError(name, error)).toEqual(expected);
     });
   });
 });

@@ -10,14 +10,14 @@ import {
   GET_LATEST_SHA_ERROR,
 } from './constants';
 
-export const getLatestSha = (name) => (
+export const getLatestHash = (name) => (
   {
     type: GET_LATEST_SHA,
     name,
   }
 );
 
-export const getLatestShaSuccess = (name, response) => (
+export const getLatestHashSuccess = (name, response) => (
   {
     type: GET_LATEST_SHA_SUCCESS,
     name,
@@ -25,7 +25,7 @@ export const getLatestShaSuccess = (name, response) => (
   }
 );
 
-export const getLatestShaError = (name, error) => (
+export const getLatestHashError = (name, error) => (
   {
     type: GET_LATEST_SHA_ERROR,
     name,

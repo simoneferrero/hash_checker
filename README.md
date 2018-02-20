@@ -7,7 +7,7 @@ A simple UI to check the latest git SHA on selected repositories/branches agains
 To run this project locally, run the following commands:
 
 ```
-$ git clone https://github.com/simoneferrero/sha_checker.git
+$ git clone https://github.com/simoneferrero/hash_checker.git
 $ npm install
 $ npm start
 ```

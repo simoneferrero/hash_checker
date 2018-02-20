@@ -16,13 +16,13 @@ import {
   GET_LATEST_SHA,
 } from 'containers/RepoListContainer/constants';
 import {
-  getLatestShaSuccess,
-  getLatestShaError,
+  getLatestHashSuccess,
+  getLatestHashError,
 } from 'containers/RepoListContainer/actions';
 import
 repoContainerSaga,
 {
-  getLatestShaSaga,
+  getLatestHashSaga,
 } from '../saga';
 
 const name = 'test1';
@@ -38,11 +38,11 @@ const getOpts = {
   headers,
 };
 
-describe('getLatestShaSaga', () => {
+describe('getLatestHashSaga', () => {
   let generator;
 
   beforeEach(() => {
-    generator = getLatestShaSaga({ name });
+    generator = getLatestHashSaga({ name });
 
     const requestURL = `${GITHUB_API_URL}repos/${GIT_COMPANY_NAME}/${name}/commits/${GIT_DEFAULT_BRANCH}`;
 
@@ -50,7 +50,7 @@ describe('getLatestShaSaga', () => {
     expect(callDescriptor).toEqual(call(request, requestURL, getOpts));
   });
 
-  it('dispatches getLatestShaSuccess if request is successful', () => {
+  it('dispatches getLatestHashSuccess if request is successful', () => {
     const response = {
       sha,
       commit: {
@@ -61,14 +61,14 @@ describe('getLatestShaSaga', () => {
     };
 
     const putDescriptor = generator.next(response).value;
-    expect(putDescriptor).toEqual(put(getLatestShaSuccess(name, response)));
+    expect(putDescriptor).toEqual(put(getLatestHashSuccess(name, response)));
   });
 
-  it('dispatches getLatestShaError if request is not successful', () => {
+  it('dispatches getLatestHashError if request is not successful', () => {
     const response = new Error('Some error');
 
     const putDescriptor = generator.throw(response).value;
-    expect(putDescriptor).toEqual(put(getLatestShaError(name, response)));
+    expect(putDescriptor).toEqual(put(getLatestHashError(name, response)));
   });
 });
 
@@ -77,6 +77,6 @@ describe('repoContainerSaga', () => {
 
   it('starts watcher for GET_LATEST_SHA action', () => {
     const takeEveryDescriptor = generator.next().value;
-    expect(takeEveryDescriptor).toEqual(takeEvery(GET_LATEST_SHA, getLatestShaSaga));
+    expect(takeEveryDescriptor).toEqual(takeEvery(GET_LATEST_SHA, getLatestHashSaga));
   });
 });
