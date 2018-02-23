@@ -17,6 +17,7 @@ const sha = '93b02ffd52c069fa21bc0c919405278ab0758ce5';
 const mockProps = {
   name,
   onLoadGetLatestHash: () => {},
+  onLoadGetRepoDetails: () => {},
   repo: {
     name,
     latest: {
@@ -45,6 +46,15 @@ describe('<RepoContainer />', () => {
   it('calls onLoadGetLatestHash on mount', () => {
     const mockCallback = jest.fn();
     mockProps.onLoadGetLatestHash = mockCallback;
+
+    renderComponent(mockProps);
+
+    expect(mockCallback.mock.calls.length).toBe(1);
+  });
+
+  it('calls onLoadGetRepoDetails on mount', () => {
+    const mockCallback = jest.fn();
+    mockProps.onLoadGetRepoDetails = mockCallback;
 
     renderComponent(mockProps);
 

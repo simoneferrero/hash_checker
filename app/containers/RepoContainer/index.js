@@ -18,6 +18,8 @@ import {
 } from 'containers/RepoListContainer/selectors';
 import {
   getLatestHash,
+
+  getRepoDetails,
 } from 'containers/RepoListContainer/actions';
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
@@ -27,10 +29,12 @@ import styles from './styles.css';
 export class RepoContainer extends React.PureComponent {
   componentWillMount = () => {
     const {
-      onLoadGetLatestHash,
       name,
+      onLoadGetLatestHash,
+      onLoadGetRepoDetails,
     } = this.props;
     onLoadGetLatestHash(name);
+    onLoadGetRepoDetails(name);
   }
 
   render() {
@@ -52,6 +56,7 @@ export class RepoContainer extends React.PureComponent {
 RepoContainer.propTypes = {
   name: PropTypes.string.isRequired,
   onLoadGetLatestHash: PropTypes.func.isRequired,
+  onLoadGetRepoDetails: PropTypes.func.isRequired,
   repo: PropTypes.shape({
     name: PropTypes.string.isRequired,
     latest: PropTypes.shape({
@@ -69,6 +74,7 @@ const mapStateToProps = (state, props) => createStructuredSelector({
 const mapDispatchToProps = (dispatch) => (
   {
     onLoadGetLatestHash: (name) => dispatch(getLatestHash(name)),
+    onLoadGetRepoDetails: (name) => dispatch(getRepoDetails(name)),
   }
 );
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
