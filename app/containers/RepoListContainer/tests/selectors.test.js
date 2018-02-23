@@ -10,9 +10,17 @@ const mockedState = fromJS({
     repos: [
       {
         name: 'test1',
+        branches: [
+          'testBranch1',
+          'testBranch2',
+        ],
       },
       {
         name: 'test2',
+        branches: [
+          'testBranch1',
+          'testBranch2',
+        ],
       },
     ],
   },
@@ -26,9 +34,17 @@ describe('RepoListContainer selectors', () => {
         repos: [
           {
             name: 'test1',
+            branches: [
+              'testBranch1',
+              'testBranch2',
+            ],
           },
           {
             name: 'test2',
+            branches: [
+              'testBranch1',
+              'testBranch2',
+            ],
           },
         ],
       });
@@ -44,9 +60,17 @@ describe('RepoListContainer selectors', () => {
       const expectedResult = [
         {
           name: 'test1',
+          branches: [
+            'testBranch1',
+            'testBranch2',
+          ],
         },
         {
           name: 'test2',
+          branches: [
+            'testBranch1',
+            'testBranch2',
+          ],
         },
       ];
 
@@ -61,6 +85,10 @@ describe('RepoListContainer selectors', () => {
 
       const expectedResult = {
         name: 'test1',
+        branches: [
+          'testBranch1',
+          'testBranch2',
+        ],
       };
 
       expect(selector(mockedState)).toEqual(expectedResult);

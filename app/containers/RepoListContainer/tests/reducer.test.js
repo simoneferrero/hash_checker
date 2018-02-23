@@ -7,6 +7,9 @@ import {
 
   getRepoDetailsSuccess,
   getRepoDetailsError,
+
+  getRepoBranchesSuccess,
+  getRepoBranchesError,
 } from '../actions';
 import repoListContainerReducer from '../reducer';
 
@@ -82,5 +85,29 @@ describe('RepoListContainer reducer', () => {
 
     const expectedResult = state.setIn(['repos', 0, 'error'], error);
     expect(repoListContainerReducer(state, getRepoDetailsError(name, error))).toEqual(expectedResult);
+  });
+
+  it('handles getRepoBranchesSuccess correctly', () => {
+    const name = 'test1';
+    const branches = [
+      {
+        name: 'staging',
+        commit: {
+          sha: '0246991e7e11b3ef20e7d43a6ca6d32b4fb42059',
+          url: 'testUrl',
+        },
+      },
+    ];
+
+    const expectedResult = state.setIn(['repos', 0, 'branches'], branches);
+    expect(repoListContainerReducer(state, getRepoBranchesSuccess(name, branches))).toEqual(expectedResult);
+  });
+
+  it('handles getRepoBranchesError correctly', () => {
+    const name = 'test1';
+    const error = 'Some error';
+
+    const expectedResult = state.setIn(['repos', 0, 'error'], error);
+    expect(repoListContainerReducer(state, getRepoBranchesError(name, error))).toEqual(expectedResult);
   });
 });

@@ -14,12 +14,16 @@ import {
 
   GET_REPO_DETAILS_SUCCESS,
   GET_REPO_DETAILS_ERROR,
+
+  GET_REPO_BRANCHES_SUCCESS,
+  GET_REPO_BRANCHES_ERROR,
 } from './constants';
 
 const initialState = fromJS({
   repos: GIT_REPOS.map((repo) => (
     {
       name: repo,
+      branches: [],
       latest: {
         error: null,
       },
@@ -80,6 +84,33 @@ function repoListContainerReducer(state = initialState, action) {
         .setIn(['repos', repoIndex, 'defaultBranch'], details.default_branch);
     }
     case GET_REPO_DETAILS_ERROR: {
+      const {
+        name,
+        error,
+      } = action;
+
+      const repos = state.get('repos').toJS();
+      const repoIndex = repos.findIndex((repo) => (repo.name === name));
+
+      return state
+        .setIn(['repos', repoIndex, 'error'], error);
+    }
+
+    /* GET_REPO_BRANCHES */
+    // TODO: include GET_REPO_BRANCHES to use for spinner and update reducer with ui
+    case GET_REPO_BRANCHES_SUCCESS: {
+      const {
+        name,
+        branches,
+      } = action;
+
+      const repos = state.get('repos').toJS();
+      const repoIndex = repos.findIndex((repo) => (repo.name === name));
+
+      return state
+        .setIn(['repos', repoIndex, 'branches'], branches);
+    }
+    case GET_REPO_BRANCHES_ERROR: {
       const {
         name,
         error,

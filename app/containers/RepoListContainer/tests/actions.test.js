@@ -7,6 +7,10 @@ import {
   getRepoDetails,
   getRepoDetailsSuccess,
   getRepoDetailsError,
+
+  getRepoBranches,
+  getRepoBranchesSuccess,
+  getRepoBranchesError,
 } from '../actions';
 import {
   GET_LATEST_SHA,
@@ -16,6 +20,10 @@ import {
   GET_REPO_DETAILS,
   GET_REPO_DETAILS_SUCCESS,
   GET_REPO_DETAILS_ERROR,
+
+  GET_REPO_BRANCHES,
+  GET_REPO_BRANCHES_SUCCESS,
+  GET_REPO_BRANCHES_ERROR,
 } from '../constants';
 
 describe('RepoListContainer actions', () => {
@@ -59,7 +67,7 @@ describe('RepoListContainer actions', () => {
     });
   });
 
-  /* getrepoDetails */
+  /* getRepoDetails */
   describe('getRepoDetails', () => {
     it('has a type of GET_REPO_DETAILS', () => {
       const name = 'test';
@@ -98,6 +106,54 @@ describe('RepoListContainer actions', () => {
         error,
       };
       expect(getRepoDetailsError(name, error)).toEqual(expected);
+    });
+  });
+
+  /* getRepoBranches */
+  describe('getRepoBranches', () => {
+    it('has a type of GET_REPO_BRANCHES', () => {
+      const name = 'test';
+      const expected = {
+        type: GET_REPO_BRANCHES,
+        name,
+      };
+      expect(getRepoBranches(name)).toEqual(expected);
+    });
+  });
+
+  describe('getRepoBranchesSuccess', () => {
+    it('has a type of GET_REPO_BRANCHES_SUCCESS', () => {
+      const name = 'test';
+      const branches = [
+        {
+          name: 'staging',
+          commit: {
+            sha: '0246991e7e11b3ef20e7d43a6ca6d32b4fb42059',
+            url: 'testUrl',
+          },
+        },
+      ];
+
+      const expected = {
+        type: GET_REPO_BRANCHES_SUCCESS,
+        name,
+        branches,
+      };
+      expect(getRepoBranchesSuccess(name, branches)).toEqual(expected);
+    });
+  });
+
+  describe('getRepoDetailsError', () => {
+    it('has a type of GET_REPO_BRANCHES_ERROR', () => {
+      const error = 'Some error';
+      const name = 'test';
+
+      const expected = {
+        type: GET_REPO_BRANCHES_ERROR,
+        name,
+        error,
+      };
+      expect(getRepoBranchesError(name, error)).toEqual(expected);
     });
   });
 });

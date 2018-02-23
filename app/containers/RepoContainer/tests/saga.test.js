@@ -15,11 +15,16 @@ import {
 import {
   GET_LATEST_SHA,
 
+  GET_REPO_BRANCHES,
+
   GET_REPO_DETAILS,
 } from 'containers/RepoListContainer/constants';
 import {
   getLatestHashSuccess,
   getLatestHashError,
+
+  getRepoBranchesSuccess,
+  getRepoBranchesError,
 
   getRepoDetailsSuccess,
   getRepoDetailsError,
@@ -28,6 +33,8 @@ import
   repoContainerSaga,
 {
   getLatestHashSaga,
+
+  getRepoBranchesSaga,
 
   getRepoDetailsSaga,
 } from '../saga';
@@ -109,6 +116,41 @@ describe('getRepoDetailsSaga', () => {
   });
 });
 
+describe('getRepoBranchesSaga', () => {
+  let generator;
+
+  beforeEach(() => {
+    generator = getRepoBranchesSaga({ name });
+
+    const requestURL = `${GITHUB_API_URL}repos/${GIT_COMPANY_NAME}/${name}/branches`;
+
+    const callDescriptor = generator.next().value;
+    expect(callDescriptor).toEqual(call(request, requestURL, getOpts));
+  });
+
+  it('dispatches getRepoBranchesSuccess if request is successful', () => {
+    const response = [
+      {
+        name: 'test',
+        commit: {
+          sha: 'abc123d',
+          url: 'test.url',
+        },
+      },
+    ];
+
+    const putDescriptor = generator.next(response).value;
+    expect(putDescriptor).toEqual(put(getRepoBranchesSuccess(name, response)));
+  });
+
+  it('dispatches getRepoBranchesError if request is not successful', () => {
+    const response = new Error('Some error');
+
+    const putDescriptor = generator.throw(response).value;
+    expect(putDescriptor).toEqual(put(getRepoBranchesError(name, response)));
+  });
+});
+
 describe('repoContainerSaga', () => {
   const generator = repoContainerSaga();
 
@@ -117,6 +159,7 @@ describe('repoContainerSaga', () => {
     expect(takeEveryDescriptor).toEqual([
       takeEvery(GET_LATEST_SHA, getLatestHashSaga),
       takeEvery(GET_REPO_DETAILS, getRepoDetailsSaga),
+      takeEvery(GET_REPO_BRANCHES, getRepoBranchesSaga),
     ]);
   });
 });

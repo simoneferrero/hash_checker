@@ -19,6 +19,8 @@ import {
 import {
   getLatestHash,
 
+  getRepoBranches,
+
   getRepoDetails,
 } from 'containers/RepoListContainer/actions';
 import injectSaga from 'utils/injectSaga';
@@ -31,10 +33,12 @@ export class RepoContainer extends React.PureComponent {
     const {
       name,
       onLoadGetLatestHash,
+      onLoadGetRepoBranches,
       onLoadGetRepoDetails,
     } = this.props;
     onLoadGetLatestHash(name);
     onLoadGetRepoDetails(name);
+    onLoadGetRepoBranches(name);
   }
 
   render() {
@@ -56,8 +60,18 @@ export class RepoContainer extends React.PureComponent {
 RepoContainer.propTypes = {
   name: PropTypes.string.isRequired,
   onLoadGetLatestHash: PropTypes.func.isRequired,
+  onLoadGetRepoBranches: PropTypes.func.isRequired,
   onLoadGetRepoDetails: PropTypes.func.isRequired,
   repo: PropTypes.shape({
+    branches: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        commit: PropTypes.shape({
+          sha: PropTypes.string.isRequired,
+          url: PropTypes.string.isRequired,
+        }).isRequired,
+      }),
+    ).isRequired,
     name: PropTypes.string.isRequired,
     latest: PropTypes.shape({
       date: PropTypes.string,
@@ -74,6 +88,7 @@ const mapStateToProps = (state, props) => createStructuredSelector({
 const mapDispatchToProps = (dispatch) => (
   {
     onLoadGetLatestHash: (name) => dispatch(getLatestHash(name)),
+    onLoadGetRepoBranches: (name) => dispatch(getRepoBranches(name)),
     onLoadGetRepoDetails: (name) => dispatch(getRepoDetails(name)),
   }
 );

@@ -6,6 +6,8 @@ import {
   GET_LATEST_SHA,
 
   GET_REPO_DETAILS,
+
+  GET_REPO_BRANCHES,
 } from 'containers/RepoListContainer/constants';
 
 import {
@@ -14,6 +16,9 @@ import {
 
   getRepoDetailsSuccess,
   getRepoDetailsError,
+
+  getRepoBranchesSuccess,
+  getRepoBranchesError,
 } from 'containers/RepoListContainer/actions';
 
 import {
@@ -75,10 +80,37 @@ export function* getRepoDetailsSaga({ name }) {
   }
 }
 
+/* getRepoBranchesSaga */
+export function* getRepoBranchesSaga({ name }) {
+  const requestUrl = getRequestUrl(
+    GITHUB_API_URL,
+    ['repos', GIT_COMPANY_NAME, name, 'branches'],
+  );
+
+  const headers = new Headers({
+    Authorization: GITHUB_API_TOKEN ? `Bearer ${GITHUB_API_TOKEN}` : '',
+  });
+
+  const opts = {
+    method: 'GET',
+    credentials: 'same-origin',
+    headers,
+  };
+
+  try {
+    const response = yield call(request, requestUrl, opts);
+
+    yield put(getRepoBranchesSuccess(name, response));
+  } catch (error) {
+    yield put(getRepoBranchesError(name, error));
+  }
+}
+
 // Individual exports for testing
 export default function* repoContainerSaga() {
   yield [
     takeEvery(GET_LATEST_SHA, getLatestHashSaga),
     takeEvery(GET_REPO_DETAILS, getRepoDetailsSaga),
+    takeEvery(GET_REPO_BRANCHES, getRepoBranchesSaga),
   ];
 }
