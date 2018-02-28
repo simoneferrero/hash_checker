@@ -10,11 +10,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import RepoDetails from 'components/RepoDetails';
 import DeployedHash from 'components/DeployedHash';
+import LatestHash from 'components/LatestHash';
+import RepoDetails from 'components/RepoDetails';
 
 import {
-  selectBranch,
   selectSingleRepo,
 } from 'containers/RepoListContainer/selectors';
 import {
@@ -42,11 +42,18 @@ export class RepoContainer extends React.PureComponent {
 
   render() {
     const {
-      branch,
       name,
       onChangeBranch,
       repo,
     } = this.props;
+
+    const {
+      branches,
+      selectedBranch,
+    } = repo;
+
+    // TODO: this needs to use selector -> currently selector is broken
+    const branch = branches.find((item) => item.name === selectedBranch);
 
     return (
       <tr className={styles.repoContainer}>
@@ -58,31 +65,14 @@ export class RepoContainer extends React.PureComponent {
             onChangeBranch={onChangeBranch}
           />
         </td>
-        <td>{ branch.commit.sha }</td>
+        <td>{branch && <LatestHash branch={branch.commit} />}</td>
         <td><DeployedHash deployed={repo.latest} /></td>
       </tr>
     );
   }
 }
 
-RepoContainer.defaultProps = {
-  branch: {
-    name: '',
-    commit: {
-      sha: '',
-      url: '',
-    },
-  },
-};
-
 RepoContainer.propTypes = {
-  branch: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    commit: PropTypes.shape({
-      sha: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
   name: PropTypes.string.isRequired,
   onChangeBranch: PropTypes.func.isRequired,
   onLoadGetRepoBranches: PropTypes.func.isRequired, // TODO: change horrible names
@@ -107,7 +97,6 @@ RepoContainer.propTypes = {
 };
 
 const mapStateToProps = (state, props) => createStructuredSelector({
-  branch: selectBranch(props.name, props.selectedBranch),
   repo: selectSingleRepo(props.name),
 });
 
