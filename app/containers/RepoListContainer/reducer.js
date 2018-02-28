@@ -9,14 +9,13 @@ import {
   GIT_REPOS,
 } from 'utils/config';
 import {
-  GET_LATEST_SHA_SUCCESS,
-  GET_LATEST_SHA_ERROR,
-
   GET_REPO_DETAILS_SUCCESS,
   GET_REPO_DETAILS_ERROR,
 
   GET_REPO_BRANCHES_SUCCESS,
   GET_REPO_BRANCHES_ERROR,
+
+  SET_SELECTED_BRANCH,
 } from './constants';
 
 const initialState = fromJS({
@@ -33,42 +32,6 @@ const initialState = fromJS({
 
 function repoListContainerReducer(state = initialState, action) {
   switch (action.type) {
-    /* GET_LATEST_SHA */
-    case GET_LATEST_SHA_SUCCESS: {
-      const {
-        name,
-        response,
-      } = action;
-
-      // TODO: export this to separate helper function and test
-      const repos = state.get('repos').toJS();
-      const repoIndex = repos.findIndex((repo) => (repo.name === name));
-
-      const latest = {
-        date: response.commit.author.date,
-        sha: response.sha,
-      };
-
-      return state
-        .setIn(['repos', repoIndex, 'latest'], fromJS(latest));
-    }
-    case GET_LATEST_SHA_ERROR: {
-      const {
-        name,
-        error,
-      } = action;
-
-      const repos = state.get('repos').toJS();
-      const repoIndex = repos.findIndex((repo) => (repo.name === name));
-
-      const latest = {
-        error,
-      };
-
-      return state
-        .setIn(['repos', repoIndex, 'latest'], fromJS(latest));
-    }
-
     /* GET_REPO_DETAILS */
     // TODO: include GET_REPO_DETAILS to use for spinner and update reducer with ui
     case GET_REPO_DETAILS_SUCCESS: {
@@ -81,7 +44,8 @@ function repoListContainerReducer(state = initialState, action) {
       const repoIndex = repos.findIndex((repo) => (repo.name === name));
 
       return state
-        .setIn(['repos', repoIndex, 'defaultBranch'], details.default_branch);
+        .setIn(['repos', repoIndex, 'defaultBranch'], details.default_branch)
+        .setIn(['repos', repoIndex, 'selectedBranch'], details.default_branch);
     }
     case GET_REPO_DETAILS_ERROR: {
       const {
@@ -123,6 +87,19 @@ function repoListContainerReducer(state = initialState, action) {
         .setIn(['repos', repoIndex, 'error'], error);
     }
 
+    /* SET_SELECTED_BRANCH */
+    case SET_SELECTED_BRANCH: {
+      const {
+        name,
+        branch,
+      } = action;
+
+      const repos = state.get('repos').toJS();
+      const repoIndex = repos.findIndex((repo) => (repo.name === name));
+
+      return state
+      .setIn(['repos', repoIndex, 'selectedBranch'], branch);
+    }
     default:
       return state;
   }

@@ -5,10 +5,6 @@
  */
 
 import {
-  GET_LATEST_SHA,
-  GET_LATEST_SHA_SUCCESS,
-  GET_LATEST_SHA_ERROR,
-
   GET_REPO_DETAILS,
   GET_REPO_DETAILS_SUCCESS,
   GET_REPO_DETAILS_ERROR,
@@ -16,31 +12,9 @@ import {
   GET_REPO_BRANCHES,
   GET_REPO_BRANCHES_SUCCESS,
   GET_REPO_BRANCHES_ERROR,
+
+  SET_SELECTED_BRANCH,
 } from './constants';
-
-/* getLatestHash */
-export const getLatestHash = (name) => (
-  {
-    type: GET_LATEST_SHA,
-    name,
-  }
-);
-
-export const getLatestHashSuccess = (name, response) => (
-  {
-    type: GET_LATEST_SHA_SUCCESS,
-    name,
-    response,
-  }
-);
-
-export const getLatestHashError = (name, error) => (
-  {
-    type: GET_LATEST_SHA_ERROR,
-    name,
-    error,
-  }
-);
 
 /* getRepoDetails */
 export const getRepoDetails = (name) => (
@@ -87,5 +61,14 @@ export const getRepoBranchesError = (name, error) => (
     type: GET_REPO_BRANCHES_ERROR,
     name,
     error,
+  }
+);
+
+/* setSelectedBranch */
+export const setSelectedBranch = (name, branch) => (
+  {
+    type: SET_SELECTED_BRANCH,
+    name,
+    branch,
   }
 );

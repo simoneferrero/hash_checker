@@ -12,22 +12,12 @@
 .repoContainer > td {
   align-items: center;
   border-left: var(--borderThinSpacing) solid var(--lightColor);
+  border-right: var(--borderThinSpacing) solid var(--lightColor);
   display: flex;
   flex-basis: 40%;
   height: 100%;
   justify-content: center;
   position: relative;
-}
-
-.repoContainer > td:after {
-  background-color: var(--whiteColor);
-  content: "";
-  height: 50%;
-  position: absolute;
-  right: var(--borderThinSpacingNegative);
-  top: 0;
-  width: var(--borderThinSpacing);
-  z-index: 100;
 }
 
 .repoContainer > td:nth-child(1) {

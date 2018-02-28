@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import LatestHash from 'components/LatestHash';
+import RepoDetails from 'components/RepoDetails';
 import DeployedHash from 'components/DeployedHash';
 import {
   RepoContainer,
@@ -25,6 +25,7 @@ const branches = [
 ];
 const mockProps = {
   name,
+  onChangeBranch: () => {},
   onLoadGetLatestHash: () => {},
   onLoadGetRepoBranches: () => {},
   onLoadGetRepoDetails: () => {},
@@ -39,28 +40,14 @@ const mockProps = {
 };
 
 describe('<RepoContainer />', () => {
-  it('renders the name of the repo', () => {
+  it('renders a RepoDetails', () => {
     const renderedComponent = renderComponent(mockProps);
-    expect(renderedComponent.contains(name)).toBe(true);
-  });
-
-  it('renders a LatestHash', () => {
-    const renderedComponent = renderComponent(mockProps);
-    expect(renderedComponent.find(LatestHash).length).toEqual(1);
+    expect(renderedComponent.find(RepoDetails).length).toBe(1);
   });
 
   it('renders a DeployedHash', () => {
     const renderedComponent = renderComponent(mockProps);
     expect(renderedComponent.find(DeployedHash).length).toEqual(1);
-  });
-
-  it('calls onLoadGetLatestHash on mount', () => {
-    const mockCallback = jest.fn();
-    mockProps.onLoadGetLatestHash = mockCallback;
-
-    renderComponent(mockProps);
-
-    expect(mockCallback.mock.calls.length).toBe(1);
   });
 
   it('calls onLoadGetRepoDetails on mount', () => {

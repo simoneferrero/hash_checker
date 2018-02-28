@@ -1,9 +1,5 @@
 
 import {
-  getLatestHash,
-  getLatestHashSuccess,
-  getLatestHashError,
-
   getRepoDetails,
   getRepoDetailsSuccess,
   getRepoDetailsError,
@@ -11,12 +7,10 @@ import {
   getRepoBranches,
   getRepoBranchesSuccess,
   getRepoBranchesError,
+
+  setSelectedBranch,
 } from '../actions';
 import {
-  GET_LATEST_SHA,
-  GET_LATEST_SHA_SUCCESS,
-  GET_LATEST_SHA_ERROR,
-
   GET_REPO_DETAILS,
   GET_REPO_DETAILS_SUCCESS,
   GET_REPO_DETAILS_ERROR,
@@ -24,49 +18,11 @@ import {
   GET_REPO_BRANCHES,
   GET_REPO_BRANCHES_SUCCESS,
   GET_REPO_BRANCHES_ERROR,
+
+  SET_SELECTED_BRANCH,
 } from '../constants';
 
 describe('RepoListContainer actions', () => {
-  /* getLatestHash */
-  describe('getLatestHash', () => {
-    it('has a type of GET_LATEST_SHA', () => {
-      const name = 'test';
-      const expected = {
-        type: GET_LATEST_SHA,
-        name,
-      };
-      expect(getLatestHash(name)).toEqual(expected);
-    });
-  });
-
-  describe('getLatestHashSuccess', () => {
-    it('has a type of GET_LATEST_SHA_SUCCESS', () => {
-      const name = 'test';
-      const response = 'response';
-
-      const expected = {
-        type: GET_LATEST_SHA_SUCCESS,
-        name,
-        response,
-      };
-      expect(getLatestHashSuccess(name, response)).toEqual(expected);
-    });
-  });
-
-  describe('getLatestHashError', () => {
-    it('has a type of GET_LATEST_SHA_ERROR', () => {
-      const error = 'Some error';
-      const name = 'test';
-
-      const expected = {
-        type: GET_LATEST_SHA_ERROR,
-        name,
-        error,
-      };
-      expect(getLatestHashError(name, error)).toEqual(expected);
-    });
-  });
-
   /* getRepoDetails */
   describe('getRepoDetails', () => {
     it('has a type of GET_REPO_DETAILS', () => {
@@ -154,6 +110,19 @@ describe('RepoListContainer actions', () => {
         error,
       };
       expect(getRepoBranchesError(name, error)).toEqual(expected);
+    });
+  });
+  /* setSelectedBranch */
+  describe('setSelectedBranch', () => {
+    it('has a type of SET_SELECTED_BRANCH', () => {
+      const name = 'test';
+      const branch = 'testBranch';
+      const expected = {
+        type: SET_SELECTED_BRANCH,
+        name,
+        branch,
+      };
+      expect(setSelectedBranch(name, branch)).toEqual(expected);
     });
   });
 });

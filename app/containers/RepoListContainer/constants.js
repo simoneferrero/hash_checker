@@ -19,3 +19,6 @@ export const GET_REPO_DETAILS_ERROR = 'app/RepoListContainer/GET_REPO_DETAILS_ER
 export const GET_REPO_BRANCHES = 'app/RepoListContainer/GET_REPO_BRANCHES';
 export const GET_REPO_BRANCHES_SUCCESS = 'app/RepoListContainer/GET_REPO_BRANCHES_SUCCESS';
 export const GET_REPO_BRANCHES_ERROR = 'app/RepoListContainer/GET_REPO_BRANCHES_ERROR';
+
+/* SET_SELECTED_BRANCH */
+export const SET_SELECTED_BRANCH = 'app/RepoListContainer/SET_SELECTED_BRANCH';

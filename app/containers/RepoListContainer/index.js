@@ -25,7 +25,13 @@ export const RepoListContainer = ({
   <table className={styles.repoListContainer}>
     <RepoHeaders />
     <tbody>
-      { repos.map((repo) => <RepoContainer key={repo.name} name={repo.name} />) }
+      { repos.map((repo) => (
+        <RepoContainer
+          key={repo.name}
+          name={repo.name}
+          selectedBranch={repo.selectedBranch}
+        />
+      )) }
     </tbody>
   </table>
 );
@@ -33,12 +39,13 @@ export const RepoListContainer = ({
 RepoListContainer.propTypes = {
   repos: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
+      error: PropTypes.string,
       latest: PropTypes.shape({
         date: PropTypes.string,
         sha: PropTypes.string,
       }),
-      error: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      selectedBranch: PropTypes.string,
     }),
   ).isRequired,
 };

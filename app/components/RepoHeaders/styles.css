@@ -9,24 +9,12 @@
 .repoHeaders th {
   align-items: center;
   border-bottom: var(--borderSpacing) solid var(--baseColor);
-  border-left: var(--borderSpacing) solid var(--baseColor);
   color: var(--darkColor);
   display: flex;
   flex-basis: 40%;
   height: 100%;
   justify-content: center;
   position: relative;
-}
-
-.repoHeaders th:after {
-  background-color: var(--whiteColor);
-  content: "";
-  height: 50%;
-  position: absolute;
-  right: var(--borderSpacingNegative);
-  top: 0;
-  width: var(--borderSpacing);
-  z-index: 100;
 }
 
 .repoHeaders th:nth-child(1) {

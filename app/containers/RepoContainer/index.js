@@ -10,18 +10,19 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import LatestHash from 'components/LatestHash';
+import RepoDetails from 'components/RepoDetails';
 import DeployedHash from 'components/DeployedHash';
 
 import {
+  selectBranch,
   selectSingleRepo,
 } from 'containers/RepoListContainer/selectors';
 import {
-  getLatestHash,
-
   getRepoBranches,
 
   getRepoDetails,
+
+  setSelectedBranch,
 } from 'containers/RepoListContainer/actions';
 import injectSaga from 'utils/injectSaga';
 import saga from './saga';
@@ -32,35 +33,59 @@ export class RepoContainer extends React.PureComponent {
   componentWillMount = () => {
     const {
       name,
-      onLoadGetLatestHash,
       onLoadGetRepoBranches,
       onLoadGetRepoDetails,
     } = this.props;
-    onLoadGetLatestHash(name);
     onLoadGetRepoDetails(name);
     onLoadGetRepoBranches(name);
   }
 
   render() {
     const {
+      branch,
       name,
+      onChangeBranch,
       repo,
     } = this.props;
 
     return (
       <tr className={styles.repoContainer}>
-        <td>{ name }</td>
-        <td><LatestHash latest={repo.latest} /></td>
+        <td>
+          <RepoDetails
+            branches={repo.branches}
+            defaultBranch={repo.defaultBranch}
+            name={name}
+            onChangeBranch={onChangeBranch}
+          />
+        </td>
+        <td>{ branch.commit.sha }</td>
         <td><DeployedHash deployed={repo.latest} /></td>
       </tr>
     );
   }
 }
 
+RepoContainer.defaultProps = {
+  branch: {
+    name: '',
+    commit: {
+      sha: '',
+      url: '',
+    },
+  },
+};
+
 RepoContainer.propTypes = {
+  branch: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    commit: PropTypes.shape({
+      sha: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
   name: PropTypes.string.isRequired,
-  onLoadGetLatestHash: PropTypes.func.isRequired,
-  onLoadGetRepoBranches: PropTypes.func.isRequired,
+  onChangeBranch: PropTypes.func.isRequired,
+  onLoadGetRepoBranches: PropTypes.func.isRequired, // TODO: change horrible names
   onLoadGetRepoDetails: PropTypes.func.isRequired,
   repo: PropTypes.shape({
     branches: PropTypes.arrayOf(
@@ -82,12 +107,13 @@ RepoContainer.propTypes = {
 };
 
 const mapStateToProps = (state, props) => createStructuredSelector({
+  branch: selectBranch(props.name, props.selectedBranch),
   repo: selectSingleRepo(props.name),
 });
 
 const mapDispatchToProps = (dispatch) => (
   {
-    onLoadGetLatestHash: (name) => dispatch(getLatestHash(name)),
+    onChangeBranch: (name, branch) => dispatch(setSelectedBranch(name, branch)),
     onLoadGetRepoBranches: (name) => dispatch(getRepoBranches(name)),
     onLoadGetRepoDetails: (name) => dispatch(getRepoDetails(name)),
   }
