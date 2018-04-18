@@ -26,6 +26,10 @@
   width: 100%;
 }
 
+.latestHash:hover {
+  cursor: pointer;
+}
+
 .latestHash > div:first-child {
   align-items: center;
   display: flex;

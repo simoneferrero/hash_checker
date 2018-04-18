@@ -19,30 +19,19 @@ const selectRepos = () => createSelector(
   (state) => state.get('repos').toJS(),
 );
 
-const selectSingleRepo = (repoName) => createSelector(
-  selectRepoListContainerDomain,
-  (state) => {
-    const repos = state.get('repos').toJS();
-    const selectedRepo = repos.find((repo) => (repo.name === repoName));
-
-    return selectedRepo;
-  },
+const selectRepo = (repoName) => createSelector(
+  selectRepos(),
+  (repos) => repos.find((repo) => repo.name === repoName),
 );
 
-const selectBranch = (repoName, branchName) => createSelector(
-  selectRepoListContainerDomain,
-  (state) => {
-    const repos = state.get('repos').toJS();
-    const { branches } = repos.find((repo) => (repo.name === repoName));
-    const selectedBranch = branches.find((branch) => (branch.name === branchName));
-
-    return selectedBranch;
-  },
+const selectBranch = (repoName) => createSelector(
+  selectRepo(repoName),
+  ({ branches, selectedBranch }) => branches.find((branch) => branch.name === selectedBranch),
 );
 
 export {
   selectBranch,
   selectRepoListContainerDomain,
   selectRepos,
-  selectSingleRepo,
+  selectRepo,
 };

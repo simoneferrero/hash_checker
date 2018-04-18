@@ -15,7 +15,8 @@ import LatestHash from 'components/LatestHash';
 import RepoDetails from 'components/RepoDetails';
 
 import {
-  selectSingleRepo,
+  selectBranch,
+  selectRepo,
 } from 'containers/RepoListContainer/selectors';
 import {
   getRepoBranches,
@@ -42,18 +43,11 @@ export class RepoContainer extends React.PureComponent {
 
   render() {
     const {
+      branch,
       name,
       onChangeBranch,
       repo,
     } = this.props;
-
-    const {
-      branches,
-      selectedBranch,
-    } = repo;
-
-    // TODO: this needs to use selector -> currently selector is broken
-    const branch = branches.find((item) => item.name === selectedBranch);
 
     return (
       <tr className={styles.repoContainer}>
@@ -73,6 +67,13 @@ export class RepoContainer extends React.PureComponent {
 }
 
 RepoContainer.propTypes = {
+  branch: PropTypes.shape({
+    commit: PropTypes.shape({
+      sha: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+  }),
   name: PropTypes.string.isRequired,
   onChangeBranch: PropTypes.func.isRequired,
   onLoadGetRepoBranches: PropTypes.func.isRequired, // TODO: change horrible names
@@ -80,24 +81,27 @@ RepoContainer.propTypes = {
   repo: PropTypes.shape({
     branches: PropTypes.arrayOf(
       PropTypes.shape({
-        name: PropTypes.string.isRequired,
         commit: PropTypes.shape({
           sha: PropTypes.string.isRequired,
           url: PropTypes.string.isRequired,
         }).isRequired,
+        name: PropTypes.string.isRequired,
       }),
     ).isRequired,
+    defaultBranch: PropTypes.string.isRequired,
+    error: PropTypes.string,
     name: PropTypes.string.isRequired,
     latest: PropTypes.shape({
       date: PropTypes.string,
       sha: PropTypes.string,
     }),
-    error: PropTypes.string,
+    selectedBranch: PropTypes.string.isRequired,
   }).isRequired,
 };
 
 const mapStateToProps = (state, props) => createStructuredSelector({
-  repo: selectSingleRepo(props.name),
+  branch: selectBranch(props.name),
+  repo: selectRepo(props.name),
 });
 
 const mapDispatchToProps = (dispatch) => (

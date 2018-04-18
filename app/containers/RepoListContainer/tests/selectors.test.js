@@ -3,7 +3,7 @@ import {
   selectBranch,
   selectRepoListContainerDomain,
   selectRepos,
-  selectSingleRepo,
+  selectRepo,
 } from '../selectors';
 
 const mockedState = fromJS({
@@ -21,6 +21,7 @@ const mockedState = fromJS({
             commit: 'testCommit2',
           },
         ],
+        selectedBranch: 'testBranch1',
       },
       {
         name: 'test2',
@@ -34,6 +35,7 @@ const mockedState = fromJS({
             commit: 'testCommit4',
           },
         ],
+        selectedBranch: 'testBranch2',
       },
     ],
   },
@@ -57,6 +59,7 @@ describe('RepoListContainer selectors', () => {
                 commit: 'testCommit2',
               },
             ],
+            selectedBranch: 'testBranch1',
           },
           {
             name: 'test2',
@@ -70,6 +73,7 @@ describe('RepoListContainer selectors', () => {
                 commit: 'testCommit4',
               },
             ],
+            selectedBranch: 'testBranch2',
           },
         ],
       });
@@ -95,6 +99,7 @@ describe('RepoListContainer selectors', () => {
               commit: 'testCommit2',
             },
           ],
+          selectedBranch: 'testBranch1',
         },
         {
           name: 'test2',
@@ -108,6 +113,7 @@ describe('RepoListContainer selectors', () => {
               commit: 'testCommit4',
             },
           ],
+          selectedBranch: 'testBranch2',
         },
       ];
 
@@ -115,10 +121,10 @@ describe('RepoListContainer selectors', () => {
     });
   });
 
-  describe('selectSingleRepo', () => {
+  describe('selectRepo', () => {
     it('selects the requested repo', () => {
       const name = 'test1';
-      const selector = selectSingleRepo(name);
+      const selector = selectRepo(name);
 
       const expectedResult = {
         name: 'test1',
@@ -132,6 +138,7 @@ describe('RepoListContainer selectors', () => {
             commit: 'testCommit2',
           },
         ],
+        selectedBranch: 'testBranch1',
       };
 
       expect(selector(mockedState)).toEqual(expectedResult);
@@ -140,8 +147,7 @@ describe('RepoListContainer selectors', () => {
     describe('selectBranch', () => {
       it('selects the requested branch', () => {
         const repoName = 'test1';
-        const branchName = 'testBranch1';
-        const selector = selectBranch(repoName, branchName);
+        const selector = selectBranch(repoName);
 
         const expectedResult = {
           name: 'testBranch1',

@@ -26,6 +26,8 @@ const initialState = fromJS({
       latest: {
         error: null,
       },
+      defaultBranch: '',
+      selectedBranch: '',
     }
   )),
 });
