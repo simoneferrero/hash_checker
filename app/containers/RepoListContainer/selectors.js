@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import createSelectorWithDynamicArgs from 'utils/createSelectorWithDynamicArgs';
 /**
  * Direct selector to the repoListContainer state domain
  */
@@ -19,7 +20,7 @@ const selectRepos = () => createSelector(
   (state) => state.get('repos').toJS(),
 );
 
-const selectRepo = (repoName) => createSelector(
+const selectRepo = (repoName) => createSelectorWithDynamicArgs(
   selectRepos(),
   (repos) => repos.find((repo) => repo.name === repoName),
 );
