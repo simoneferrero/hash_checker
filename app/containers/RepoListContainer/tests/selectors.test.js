@@ -1,9 +1,9 @@
 import { fromJS } from 'immutable';
 import {
-  selectBranch,
-  selectRepoListContainerDomain,
-  selectRepos,
-  selectRepo,
+  getSelectedBranch,
+  getRepoListContainer,
+  getAllRepos,
+  getRepo,
 } from '../selectors';
 
 const mockedState = fromJS({
@@ -42,9 +42,9 @@ const mockedState = fromJS({
 });
 
 describe('RepoListContainer selectors', () => {
-  describe('selectRepoListContainerDomain', () => {
+  describe('getRepoListContainer', () => {
     it('selects the entire state', () => {
-      const selector = selectRepoListContainerDomain(mockedState);
+      const selector = getRepoListContainer(mockedState);
       const selectedState = fromJS({
         repos: [
           {
@@ -82,9 +82,9 @@ describe('RepoListContainer selectors', () => {
     });
   });
 
-  describe('selectRepos', () => {
+  describe('getAllRepos', () => {
     it('selects the repos array', () => {
-      const selector = selectRepos();
+      const selector = getAllRepos();
 
       const expectedResult = [
         {
@@ -121,10 +121,10 @@ describe('RepoListContainer selectors', () => {
     });
   });
 
-  describe('selectRepo', () => {
+  describe('getRepo', () => {
     it('selects the requested repo', () => {
       const name = 'test1';
-      const selector = selectRepo(name);
+      const selector = getRepo(name);
 
       const expectedResult = {
         name: 'test1',
@@ -144,10 +144,10 @@ describe('RepoListContainer selectors', () => {
       expect(selector(mockedState)).toEqual(expectedResult);
     });
 
-    describe('selectBranch', () => {
+    describe('getSelectedBranch', () => {
       it('selects the requested branch', () => {
         const repoName = 'test1';
-        const selector = selectBranch(repoName);
+        const selector = getSelectedBranch(repoName);
 
         const expectedResult = {
           name: 'testBranch1',

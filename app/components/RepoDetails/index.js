@@ -9,6 +9,10 @@ import PropTypes from 'prop-types';
 
 import Select from 'react-select';
 
+import {
+  branchType,
+} from 'types';
+
 import styles from './styles.css';
 
 class RepoDetails extends Component {
@@ -19,7 +23,10 @@ class RepoDetails extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (!this.state.selectedBranch) {
       this.setState({
-        selectedBranch: nextProps.defaultBranch,
+        selectedBranch: {
+          value: nextProps.defaultBranch,
+          label: nextProps.defaultBranch,
+        },
       });
     }
   }
@@ -28,8 +35,18 @@ class RepoDetails extends Component {
     this.setState({
       selectedBranch,
     });
-    this.props.onChangeBranch(this.props.name, selectedBranch.value);
+
+    if (selectedBranch) {
+      this.props.onChangeBranch(this.props.name, selectedBranch.value);
+    }
   }
+
+  createSelectOptions = (branches) => branches.map((branch) => (
+    {
+      value: branch.name,
+      label: branch.name,
+    }
+  ))
 
   render() {
     const {
@@ -41,14 +58,9 @@ class RepoDetails extends Component {
       name,
     } = this.props;
 
-    const options = branches.map((branch) => (
-      {
-        value: branch.name,
-        label: branch.name,
-      }
-    ));
+    const options = this.createSelectOptions(branches);
 
-    const selectBranches = defaultBranch && (
+    const getSelectedBranches = defaultBranch && (
       <Select
         name="selectedBranch"
         value={selectedBranch}
@@ -60,7 +72,7 @@ class RepoDetails extends Component {
     return (
       <div className={styles.repoDetails}>
         <h4>{ name }</h4>
-        { selectBranches }
+        { getSelectedBranches }
       </div>
     );
   }
@@ -68,17 +80,17 @@ class RepoDetails extends Component {
 
 RepoDetails.propTypes = {
   branches: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      commit: PropTypes.shape({
-        sha: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-      }).isRequired,
-    }),
+    branchType,
   ).isRequired,
   defaultBranch: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChangeBranch: PropTypes.func.isRequired,
+};
+
+RepoDetails.defaultProps = {
+  branches: [],
+  name: '',
+  onChangeBranch: () => {},
 };
 
 export default RepoDetails;

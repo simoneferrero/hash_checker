@@ -10,13 +10,15 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { isEqual } from 'lodash';
+
 import DeployedHash from 'components/DeployedHash';
 import LatestHash from 'components/LatestHash';
 import RepoDetails from 'components/RepoDetails';
 
 import {
-  selectBranch,
-  selectRepo,
+  getSelectedBranch,
+  getRepo,
 } from 'containers/RepoListContainer/selectors';
 import {
   getRepoBranches,
@@ -26,6 +28,11 @@ import {
   setSelectedBranch,
 } from 'containers/RepoListContainer/actions';
 import injectSaga from 'utils/injectSaga';
+import {
+  branchType,
+  repoType,
+ } from 'types';
+
 import saga from './saga';
 
 import styles from './styles.css';
@@ -40,6 +47,8 @@ export class RepoContainer extends React.PureComponent {
     onLoadGetRepoDetails(name);
     onLoadGetRepoBranches(name);
   }
+
+  shouldComponentUpdate = (nextProps) => !isEqual(this.props, nextProps)
 
   render() {
     const {
@@ -67,41 +76,25 @@ export class RepoContainer extends React.PureComponent {
 }
 
 RepoContainer.propTypes = {
-  branch: PropTypes.shape({
-    commit: PropTypes.shape({
-      sha: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-    }).isRequired,
-    name: PropTypes.string.isRequired,
-  }),
+  branch: branchType,
   name: PropTypes.string.isRequired,
   onChangeBranch: PropTypes.func.isRequired,
-  onLoadGetRepoBranches: PropTypes.func.isRequired, // TODO: change horrible names
+  onLoadGetRepoBranches: PropTypes.func.isRequired,
   onLoadGetRepoDetails: PropTypes.func.isRequired,
-  repo: PropTypes.shape({
-    branches: PropTypes.arrayOf(
-      PropTypes.shape({
-        commit: PropTypes.shape({
-          sha: PropTypes.string.isRequired,
-          url: PropTypes.string.isRequired,
-        }).isRequired,
-        name: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    defaultBranch: PropTypes.string.isRequired,
-    error: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    latest: PropTypes.shape({
-      date: PropTypes.string,
-      sha: PropTypes.string,
-    }),
-    selectedBranch: PropTypes.string.isRequired,
-  }).isRequired,
+  repo: repoType.isRequired,
+};
+
+RepoContainer.defaultProps = {
+  name: '',
+  onChangeBranch: () => {},
+  onLoadGetRepoBranches: () => {},
+  onLoadGetRepoDetails: () => {},
+  repo: {},
 };
 
 const mapStateToProps = (state, props) => createStructuredSelector({
-  branch: selectBranch(props.name),
-  repo: selectRepo(props.name),
+  branch: getSelectedBranch(props.name),
+  repo: getRepo(props.name),
 });
 
 const mapDispatchToProps = (dispatch) => (

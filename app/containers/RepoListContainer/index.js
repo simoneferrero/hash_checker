@@ -13,8 +13,12 @@ import { compose } from 'redux';
 import RepoContainer from 'containers/RepoContainer';
 import RepoHeaders from 'components/RepoHeaders';
 
+import {
+  repoType,
+ } from 'types';
+
 import injectReducer from 'utils/injectReducer';
-import { selectRepos } from './selectors';
+import { getAllRepos } from './selectors';
 import reducer from './reducer';
 
 import styles from './styles.css';
@@ -38,15 +42,7 @@ export const RepoListContainer = ({
 
 RepoListContainer.propTypes = {
   repos: PropTypes.arrayOf(
-    PropTypes.shape({
-      error: PropTypes.string,
-      latest: PropTypes.shape({
-        date: PropTypes.string,
-        sha: PropTypes.string,
-      }),
-      name: PropTypes.string.isRequired,
-      selectedBranch: PropTypes.string,
-    }),
+    repoType,
   ).isRequired,
 };
 
@@ -55,7 +51,7 @@ RepoListContainer.defaultProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  repos: selectRepos(),
+  repos: getAllRepos(),
 });
 
 const withConnect = connect(mapStateToProps);

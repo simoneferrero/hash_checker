@@ -1,10 +1,18 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 
-// import DeployedHash from '../index';
+import DeployedHash from '../index';
+
+const renderComponent = (props = {}) => shallow(
+  <DeployedHash {...props} />
+);
+
 
 describe('<DeployedHash />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('displays a work in progress message', () => {
+    const message = 'Deployed hash coming soon';
+    const renderedComponent = renderComponent();
+
+    expect(renderedComponent.contains(message)).toBe(true);
   });
 });

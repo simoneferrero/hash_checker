@@ -30,12 +30,14 @@ const mockProps = {
   onLoadGetRepoBranches: () => {},
   onLoadGetRepoDetails: () => {},
   repo: {
-    name,
     branches,
+    defaultBranch: 'staging',
     latest: {
       date,
       sha,
     },
+    name,
+    selectedBranch: 'staging',
   },
 };
 
@@ -66,5 +68,19 @@ describe('<RepoContainer />', () => {
     renderComponent(mockProps);
 
     expect(mockCallback.mock.calls.length).toBe(1);
+  });
+
+  it('does not update if nextProps and currentProps are equal', () => {
+    const renderedComponent = renderComponent(mockProps);
+    const methodCall = renderedComponent.instance().shouldComponentUpdate(mockProps);
+
+    expect(methodCall).toBe(false);
+  });
+
+  it('updates if nextProps and currentProps are different', () => {
+    const renderedComponent = renderComponent(mockProps);
+    const methodCall = renderedComponent.instance().shouldComponentUpdate({ selectedBranch: 'master' });
+
+    expect(methodCall).toBe(true);
   });
 });

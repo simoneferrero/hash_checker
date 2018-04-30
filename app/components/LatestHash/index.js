@@ -5,11 +5,14 @@
 */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 import Clipboard from 'react-clipboard.js';
 import { toastr } from 'react-redux-toastr';
 import GoClippy from 'react-icons/lib/go/clippy';
+
+import {
+  commitType,
+} from 'types';
 
 import classnames from 'classnames';
 import styles from './styles.css';
@@ -68,8 +71,5 @@ export default class LatestHash extends PureComponent {
 }
 
 LatestHash.propTypes = {
-  branch: PropTypes.shape({
-    sha: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
+  branch: commitType.isRequired,
 };
