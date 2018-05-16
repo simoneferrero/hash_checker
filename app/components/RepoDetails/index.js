@@ -62,10 +62,11 @@ class RepoDetails extends Component {
 
     const getSelectedBranches = defaultBranch && (
       <Select
+        clearable={false}
         name="selectedBranch"
-        value={selectedBranch}
         onChange={this.handleChangeBranch}
         options={options}
+        value={selectedBranch}
       />
     );
 

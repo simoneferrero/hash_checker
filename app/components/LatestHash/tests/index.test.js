@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import GoClippy from 'react-icons/lib/go/clippy';
+import CopyButton from 'components/CopyButton';
 
 import LatestHash from '../index';
 
@@ -24,10 +25,10 @@ describe('<LatestHash />', () => {
     expect(renderedComponent.contains('93b02ff')).toBe(true);
   });
 
-  it('renders a copy icon', () => {
+  it('renders a CopyButton component', () => {
     const renderedComponent = renderComponent({ branch: propsSuccess });
 
-    expect(renderedComponent.find(GoClippy).length).toBe(1);
+    expect(renderedComponent.find(CopyButton).length).toBe(1);
   });
 
   it('changes state when handleHover is called', () => {

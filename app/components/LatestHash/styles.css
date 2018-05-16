@@ -5,20 +5,9 @@
   font-weight: bold;
 }
 
-.icon {
-  opacity: 0;
-  margin-right: 10px;
-  transition: .3s ease;
-}
-
-.iconVisible {
-  opacity: 1;
-}
-
 .latestHash {
   align-items: center;
   display: flex;
-  flex-direction: column;
   height: 100%;
   justify-content: center;
   padding: var(--quarterSpacing);
@@ -26,18 +15,9 @@
   width: 100%;
 }
 
-.latestHash:hover {
-  cursor: pointer;
-}
-
-.latestHash > div:first-child {
-  align-items: center;
-  display: flex;
+.latestHash > div {
   font-size: 20px;
-  font-weight: bold;
-}
-
-.wrapper {
-  height: 100%;
-  width: 100%;
+  margin: 10px;
+  width: 100px;
+  text-align: center;
 }
