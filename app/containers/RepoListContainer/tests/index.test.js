@@ -12,10 +12,16 @@ const renderComponent = (props = {}) => shallow(
 describe('<RepoListContainer />', () => {
   const repos = [
     {
+      branches: [],
+      defaultBranch: 'staging',
       name: 'test1',
+      selectedBranch: 'staging',
     },
     {
+      branches: [],
+      defaultBranch: 'staging',
       name: 'test2',
+      selectedBranch: 'staging',
     },
   ];
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import LatestHash from 'components/LatestHash';
+import RepoDetails from 'components/RepoDetails';
 import DeployedHash from 'components/DeployedHash';
 import {
   RepoContainer,
@@ -14,27 +14,37 @@ const renderComponent = (props = {}) => shallow(
 const date = '2018-02-05T15:40:23Z';
 const name = 'test1';
 const sha = '93b02ffd52c069fa21bc0c919405278ab0758ce5';
+const branches = [
+  {
+    name: 'staging',
+    commit: {
+      sha: '0246991e7e11b3ef20e7d43a6ca6d32b4fb42059',
+      url: 'testUrl',
+    },
+  },
+];
 const mockProps = {
   name,
+  onChangeBranch: () => {},
   onLoadGetLatestHash: () => {},
+  onLoadGetRepoBranches: () => {},
+  onLoadGetRepoDetails: () => {},
   repo: {
-    name,
+    branches,
+    defaultBranch: 'staging',
     latest: {
       date,
       sha,
     },
+    name,
+    selectedBranch: 'staging',
   },
 };
 
 describe('<RepoContainer />', () => {
-  it('renders the name of the repo', () => {
+  it('renders a RepoDetails', () => {
     const renderedComponent = renderComponent(mockProps);
-    expect(renderedComponent.contains(name)).toBe(true);
-  });
-
-  it('renders a LatestHash', () => {
-    const renderedComponent = renderComponent(mockProps);
-    expect(renderedComponent.find(LatestHash).length).toEqual(1);
+    expect(renderedComponent.find(RepoDetails).length).toBe(1);
   });
 
   it('renders a DeployedHash', () => {
@@ -42,12 +52,35 @@ describe('<RepoContainer />', () => {
     expect(renderedComponent.find(DeployedHash).length).toEqual(1);
   });
 
-  it('calls onLoadGetLatestHash on mount', () => {
+  it('calls onLoadGetRepoDetails on mount', () => {
     const mockCallback = jest.fn();
-    mockProps.onLoadGetLatestHash = mockCallback;
+    mockProps.onLoadGetRepoDetails = mockCallback;
 
     renderComponent(mockProps);
 
     expect(mockCallback.mock.calls.length).toBe(1);
+  });
+
+  it('calls onLoadGetRepoBranches on mount', () => {
+    const mockCallback = jest.fn();
+    mockProps.onLoadGetRepoBranches = mockCallback;
+
+    renderComponent(mockProps);
+
+    expect(mockCallback.mock.calls.length).toBe(1);
+  });
+
+  it('does not update if nextProps and currentProps are equal', () => {
+    const renderedComponent = renderComponent(mockProps);
+    const methodCall = renderedComponent.instance().shouldComponentUpdate(mockProps);
+
+    expect(methodCall).toBe(false);
+  });
+
+  it('updates if nextProps and currentProps are different', () => {
+    const renderedComponent = renderComponent(mockProps);
+    const methodCall = renderedComponent.instance().shouldComponentUpdate({ selectedBranch: 'master' });
+
+    expect(methodCall).toBe(true);
   });
 });

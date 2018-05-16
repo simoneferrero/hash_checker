@@ -1,52 +1,128 @@
 
 import {
-  getLatestHash,
-  getLatestHashSuccess,
-  getLatestHashError,
+  getRepoDetails,
+  getRepoDetailsSuccess,
+  getRepoDetailsError,
+
+  getRepoBranches,
+  getRepoBranchesSuccess,
+  getRepoBranchesError,
+
+  setSelectedBranch,
 } from '../actions';
 import {
-  GET_LATEST_SHA,
-  GET_LATEST_SHA_SUCCESS,
-  GET_LATEST_SHA_ERROR,
+  GET_REPO_DETAILS,
+  GET_REPO_DETAILS_SUCCESS,
+  GET_REPO_DETAILS_ERROR,
+
+  GET_REPO_BRANCHES,
+  GET_REPO_BRANCHES_SUCCESS,
+  GET_REPO_BRANCHES_ERROR,
+
+  SET_SELECTED_BRANCH,
 } from '../constants';
 
 describe('RepoListContainer actions', () => {
-  describe('GetLatestHash', () => {
-    it('has a type of GET_LATEST_SHA', () => {
+  /* getRepoDetails */
+  describe('getRepoDetails', () => {
+    it('has a type of GET_REPO_DETAILS', () => {
       const name = 'test';
       const expected = {
-        type: GET_LATEST_SHA,
+        type: GET_REPO_DETAILS,
         name,
       };
-      expect(getLatestHash(name)).toEqual(expected);
+      expect(getRepoDetails(name)).toEqual(expected);
     });
   });
 
-  describe('GetLatestHashSuccess', () => {
-    it('has a type of GET_LATEST_SHA_SUCCESS', () => {
+  describe('getRepoDetailsSuccess', () => {
+    it('has a type of GET_REPO_DETAILS_SUCCESS', () => {
       const name = 'test';
-      const response = 'response';
+      const details = {
+        default_branch: 'staging',
+      };
 
       const expected = {
-        type: GET_LATEST_SHA_SUCCESS,
+        type: GET_REPO_DETAILS_SUCCESS,
         name,
-        response,
+        details,
       };
-      expect(getLatestHashSuccess(name, response)).toEqual(expected);
+      expect(getRepoDetailsSuccess(name, details)).toEqual(expected);
     });
   });
 
-  describe('GetLatestHashError', () => {
-    it('has a type of GET_LATEST_SHA_ERROR', () => {
+  describe('getRepoDetailsError', () => {
+    it('has a type of GET_REPO_DETAILS_ERROR', () => {
       const error = 'Some error';
       const name = 'test';
 
       const expected = {
-        type: GET_LATEST_SHA_ERROR,
+        type: GET_REPO_DETAILS_ERROR,
         name,
         error,
       };
-      expect(getLatestHashError(name, error)).toEqual(expected);
+      expect(getRepoDetailsError(name, error)).toEqual(expected);
+    });
+  });
+
+  /* getRepoBranches */
+  describe('getRepoBranches', () => {
+    it('has a type of GET_REPO_BRANCHES', () => {
+      const name = 'test';
+      const expected = {
+        type: GET_REPO_BRANCHES,
+        name,
+      };
+      expect(getRepoBranches(name)).toEqual(expected);
+    });
+  });
+
+  describe('getRepoBranchesSuccess', () => {
+    it('has a type of GET_REPO_BRANCHES_SUCCESS', () => {
+      const name = 'test';
+      const branches = [
+        {
+          name: 'staging',
+          commit: {
+            sha: '0246991e7e11b3ef20e7d43a6ca6d32b4fb42059',
+            url: 'testUrl',
+          },
+        },
+      ];
+
+      const expected = {
+        type: GET_REPO_BRANCHES_SUCCESS,
+        name,
+        branches,
+      };
+      expect(getRepoBranchesSuccess(name, branches)).toEqual(expected);
+    });
+  });
+
+  describe('getRepoDetailsError', () => {
+    it('has a type of GET_REPO_BRANCHES_ERROR', () => {
+      const error = 'Some error';
+      const name = 'test';
+
+      const expected = {
+        type: GET_REPO_BRANCHES_ERROR,
+        name,
+        error,
+      };
+      expect(getRepoBranchesError(name, error)).toEqual(expected);
+    });
+  });
+  /* setSelectedBranch */
+  describe('setSelectedBranch', () => {
+    it('has a type of SET_SELECTED_BRANCH', () => {
+      const name = 'test';
+      const branch = 'testBranch';
+      const expected = {
+        type: SET_SELECTED_BRANCH,
+        name,
+        branch,
+      };
+      expect(setSelectedBranch(name, branch)).toEqual(expected);
     });
   });
 });

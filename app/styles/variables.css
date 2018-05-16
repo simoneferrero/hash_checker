@@ -4,9 +4,7 @@
   --quarterSpacing: 6px;
   --wideSpacing: 36px;
   --borderSpacing: 5px;
-  --borderSpacingNegative: -5px;
-  --borderThinSpacing: 3px;
-  --borderThinSpacingNegative: -3px;
+  --borderThinSpacing: 1px;
 
   --baseColor: rgba(39, 138, 165, 1);
   --lightColor: rgba(130, 186, 201, 1);

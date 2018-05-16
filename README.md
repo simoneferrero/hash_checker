@@ -23,6 +23,5 @@ export const GITHUB_API_URL = 'https://api.github.com/'; // required
 export const GITHUB_API_TOKEN = '{your_token}'; // if empty/null, no authentication will be used
 
 export const GIT_COMPANY_NAME = '{your_name/company_name}'; // required
-export const GIT_DEFAULT_BRANCH = '{repo_default_branch}'; // if empty/null, default will be master
 export const GIT_REPOS = []; // array of repo names to check SHA from, as strings
 ```

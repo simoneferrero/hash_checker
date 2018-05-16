@@ -1,36 +1,32 @@
 import { createSelector } from 'reselect';
 
+import createSelectorWithDynamicArgs from 'utils/createSelectorWithDynamicArgs';
 /**
  * Direct selector to the repoListContainer state domain
  */
-const selectRepoListContainerDomain = (state) => state.get('repoListContainer');
+const getRepoListContainer = (state) => state.get('repoListContainer');
 
 /**
  * Other specific selectors
  */
-
-
-/**
- * Default selector used by RepoListContainer
- */
-
-const selectRepos = () => createSelector(
-  selectRepoListContainerDomain,
+const getAllRepos = () => createSelector(
+  getRepoListContainer,
   (state) => state.get('repos').toJS(),
 );
 
-const selectSingleRepo = (name) => createSelector(
-  selectRepoListContainerDomain,
-  (state) => {
-    const repos = state.get('repos').toJS();
-    const repoIndex = repos.findIndex((repo) => (repo.name === name));
+const getRepo = (repoName) => createSelectorWithDynamicArgs(
+  getAllRepos(),
+  (repos) => repos.find((repo) => repo.name === repoName),
+);
 
-    return state.getIn(['repos', repoIndex]).toJS();
-  },
+const getSelectedBranch = (repoName) => createSelectorWithDynamicArgs(
+  getRepo(repoName),
+  ({ branches, selectedBranch }) => branches.find((branch) => branch.name === selectedBranch),
 );
 
 export {
-  selectRepoListContainerDomain,
-  selectRepos,
-  selectSingleRepo,
+  getAllRepos,
+  getRepo,
+  getRepoListContainer,
+  getSelectedBranch,
 };

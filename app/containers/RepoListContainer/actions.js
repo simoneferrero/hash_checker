@@ -5,30 +5,70 @@
  */
 
 import {
-  GET_LATEST_SHA,
-  GET_LATEST_SHA_SUCCESS,
-  GET_LATEST_SHA_ERROR,
+  GET_REPO_DETAILS,
+  GET_REPO_DETAILS_SUCCESS,
+  GET_REPO_DETAILS_ERROR,
+
+  GET_REPO_BRANCHES,
+  GET_REPO_BRANCHES_SUCCESS,
+  GET_REPO_BRANCHES_ERROR,
+
+  SET_SELECTED_BRANCH,
 } from './constants';
 
-export const getLatestHash = (name) => (
+/* getRepoDetails */
+export const getRepoDetails = (name) => (
   {
-    type: GET_LATEST_SHA,
+    type: GET_REPO_DETAILS,
     name,
   }
 );
 
-export const getLatestHashSuccess = (name, response) => (
+export const getRepoDetailsSuccess = (name, details) => (
   {
-    type: GET_LATEST_SHA_SUCCESS,
+    type: GET_REPO_DETAILS_SUCCESS,
     name,
-    response,
+    details,
   }
 );
 
-export const getLatestHashError = (name, error) => (
+export const getRepoDetailsError = (name, error) => (
   {
-    type: GET_LATEST_SHA_ERROR,
+    type: GET_REPO_DETAILS_ERROR,
     name,
     error,
+  }
+);
+
+/* getRepoBranches */
+export const getRepoBranches = (name) => (
+  {
+    type: GET_REPO_BRANCHES,
+    name,
+  }
+);
+
+export const getRepoBranchesSuccess = (name, branches) => (
+  {
+    type: GET_REPO_BRANCHES_SUCCESS,
+    name,
+    branches,
+  }
+);
+
+export const getRepoBranchesError = (name, error) => (
+  {
+    type: GET_REPO_BRANCHES_ERROR,
+    name,
+    error,
+  }
+);
+
+/* setSelectedBranch */
+export const setSelectedBranch = (name, branch) => (
+  {
+    type: SET_SELECTED_BRANCH,
+    name,
+    branch,
   }
 );

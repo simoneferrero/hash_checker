@@ -16,6 +16,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 import '!!file-loader?name=[name].[ext]!./styles/index.css';
+import '!!file-loader?name=[name].[ext]!react-select/dist/react-select.css';
 
 // Import root app
 import App from 'containers/App';

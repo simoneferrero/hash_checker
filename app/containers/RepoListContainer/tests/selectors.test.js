@@ -1,8 +1,9 @@
 import { fromJS } from 'immutable';
 import {
-  selectRepoListContainerDomain,
-  selectRepos,
-  selectSingleRepo,
+  getSelectedBranch,
+  getRepoListContainer,
+  getAllRepos,
+  getRepo,
 } from '../selectors';
 
 const mockedState = fromJS({
@@ -10,25 +11,69 @@ const mockedState = fromJS({
     repos: [
       {
         name: 'test1',
+        branches: [
+          {
+            name: 'testBranch1',
+            commit: 'testCommit1',
+          },
+          {
+            name: 'testBranch2',
+            commit: 'testCommit2',
+          },
+        ],
+        selectedBranch: 'testBranch1',
       },
       {
         name: 'test2',
+        branches: [
+          {
+            name: 'testBranch1',
+            commit: 'testCommit3',
+          },
+          {
+            name: 'testBranch2',
+            commit: 'testCommit4',
+          },
+        ],
+        selectedBranch: 'testBranch2',
       },
     ],
   },
 });
 
 describe('RepoListContainer selectors', () => {
-  describe('selectRepoListContainerDomain', () => {
+  describe('getRepoListContainer', () => {
     it('selects the entire state', () => {
-      const selector = selectRepoListContainerDomain(mockedState);
+      const selector = getRepoListContainer(mockedState);
       const selectedState = fromJS({
         repos: [
           {
             name: 'test1',
+            branches: [
+              {
+                name: 'testBranch1',
+                commit: 'testCommit1',
+              },
+              {
+                name: 'testBranch2',
+                commit: 'testCommit2',
+              },
+            ],
+            selectedBranch: 'testBranch1',
           },
           {
             name: 'test2',
+            branches: [
+              {
+                name: 'testBranch1',
+                commit: 'testCommit3',
+              },
+              {
+                name: 'testBranch2',
+                commit: 'testCommit4',
+              },
+            ],
+            selectedBranch: 'testBranch2',
           },
         ],
       });
@@ -37,16 +82,38 @@ describe('RepoListContainer selectors', () => {
     });
   });
 
-  describe('selectRepos', () => {
+  describe('getAllRepos', () => {
     it('selects the repos array', () => {
-      const selector = selectRepos();
+      const selector = getAllRepos();
 
       const expectedResult = [
         {
           name: 'test1',
+          branches: [
+            {
+              name: 'testBranch1',
+              commit: 'testCommit1',
+            },
+            {
+              name: 'testBranch2',
+              commit: 'testCommit2',
+            },
+          ],
+          selectedBranch: 'testBranch1',
         },
         {
           name: 'test2',
+          branches: [
+            {
+              name: 'testBranch1',
+              commit: 'testCommit3',
+            },
+            {
+              name: 'testBranch2',
+              commit: 'testCommit4',
+            },
+          ],
+          selectedBranch: 'testBranch2',
         },
       ];
 
@@ -54,16 +121,41 @@ describe('RepoListContainer selectors', () => {
     });
   });
 
-  describe('selectSingleRepo', () => {
-    it('selects the repos array', () => {
+  describe('getRepo', () => {
+    it('selects the requested repo', () => {
       const name = 'test1';
-      const selector = selectSingleRepo(name);
+      const selector = getRepo(name);
 
       const expectedResult = {
         name: 'test1',
+        branches: [
+          {
+            name: 'testBranch1',
+            commit: 'testCommit1',
+          },
+          {
+            name: 'testBranch2',
+            commit: 'testCommit2',
+          },
+        ],
+        selectedBranch: 'testBranch1',
       };
 
       expect(selector(mockedState)).toEqual(expectedResult);
+    });
+
+    describe('getSelectedBranch', () => {
+      it('selects the requested branch', () => {
+        const repoName = 'test1';
+        const selector = getSelectedBranch(repoName);
+
+        const expectedResult = {
+          name: 'testBranch1',
+          commit: 'testCommit1',
+        };
+
+        expect(selector(mockedState)).toEqual(expectedResult);
+      });
     });
   });
 });
